@@ -15,7 +15,7 @@
     body {
       font-size: 1rem;
       font-family: 'Work Sans', sans-serif;
-      min-height: 700px;
+      min-height: 1000px;
     }
 
     .mynavbar {
@@ -24,12 +24,12 @@
 
     footer {
       padding: 5vw;
-      background-color:  #000000;
-      color: rgb(19, 140, 240);
+      background-color:  #080808;
+      color: rgb(21, 185, 185);
     }
 
     footer a{
-      color: #f5f1f1;
+      color: #e9e0e0;
       font-weight: bold;
       text-decoration: none;
     }
@@ -56,6 +56,7 @@
       flex: 3; /* Ukuran kolom besar (3 kali lipat dari kolom kecil) */
       background-color: lightblue;
       padding: 20px;
+      margin-bottom: 20px;
     }
 
     .small-column {
@@ -65,16 +66,22 @@
       margin-bottom: 3rem;
       max-height: 30rem;
       max-width: 30rem;
+      align-items: end;
+      justify-content: end;
     }
     .comment{
         background-color: rgb(27, 71, 71);
         max-width: 100%;
+        margin-top: 32rem;
     }
-   .paket, .nilai{
+    .paket{
       display: flex;      
       justify-content: space-between; 
     }
- 
+    .nilai{
+      display: flex;     
+      justify-content: space-between;
+    }
   </style>
 </head>
 <body>
@@ -109,9 +116,9 @@
         mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.</p>
     </div>
     
-    <!-- Kolom kecil -->
-    <div class="justify-content-end">
-    <div class="small-column">
+     
+     <!-- Kolom kecil -->
+     <div class="small-column"> 
       <div class="paket">
         <h4 class="text-left">Paket Gold</h4>        
         <h4 class="text-right">Rp.10.000.000.00</h4>
@@ -120,45 +127,42 @@
         In eleifend congue rhoncus.
         Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
         vitae sodales ante ultricies tincidunt.</p>
-        <div class="nilai">
+      <div class="nilai">
           <h4>Tersedia</h4>
-          <button class="btn btn-outline-primary">booking</button>
+          <button class="btn btn-primary">booking</button>
       </div>
-    </div>
+  </div>
 
-    <div class="small-column">
-      <div class="paket">
-        <h4 class="text-left">Paket Gold</h4>        
-        <h4 class="text-right">Rp.10.000.000.00</h4>
-      </div>   
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        In eleifend congue rhoncus.
-        Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-        vitae sodales ante ultricies tincidunt.</p>
-        <div class="nilai">
-          <h4>Tersedia</h4>
-          <button class="btn btn-outline-primary">booking</button>
-      </div>
-    </div>
-
-    <div class="small-column">
-      <div class="paket">
-        <h4 class="text-left">Paket Gold</h4>        
-        <h4 class="text-right">Rp.10.000.000.00</h4>
-      </div>   
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        In eleifend congue rhoncus.
-        Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-        vitae sodales ante ultricies tincidunt.</p>
-        <div class="nilai">
-          <h4>Tersedia</h4>
-          <button class="btn btn-outline-primary">booking</button>
-      </div>
-    </div>
-
+  <div class="small-column"> 
+    <div class="paket">
+      <h4 class="text-left">Paket Gold</h4>        
+      <h4 class="text-right">Rp.10.000.000.00</h4>
+    </div>   
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+      In eleifend congue rhoncus.
+      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+      vitae sodales ante ultricies tincidunt.</p>
+    <div class="nilai">
+        <h4>Tersedia</h4>
+        <button class="btn btn-primary">booking</button>
     </div>
   </div>
 
+  <div class="small-column"> 
+    <div class="paket">
+      <h4 class="text-left">Paket Gold</h4>        
+      <h4 class="text-right">Rp.10.000.000.00</h4>
+    </div>   
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+      In eleifend congue rhoncus.
+      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+      vitae sodales ante ultricies tincidunt.</p>
+    <div class="nilai">
+        <h4>Tersedia</h4>
+        <button class="btn btn-primary">booking</button>
+    </div>
+  </div>
+</div>
   
   
   
