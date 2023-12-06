@@ -18,7 +18,7 @@
          body {
         font-size: 1rem;
         font-family: 'Work Sans', sans-serif;
-        min-height: 1000px;
+        min-height: 700px;
         }
         .mynavbar {
             background-color: aqua;             
@@ -32,18 +32,23 @@
             margin-right: 2rem;
             margin-left: 2rem;
         } 
+        #daftar{
+            container: '';
+            display: flex;
+            margin-top: 4rem;
+            margin-bottom: 6rem;
+        }
         footer {
-        padding: 5vw;
-        background-color: rgb(27, 71, 71);
-        color: white;
+        padding: 6vw;
+        background-color:  #000000;
+        color: rgb(19, 233, 240);
         }
 
         footer a{
-        color: #0a0a0a;
+        color: #f5f1f1;
         font-weight: bold;
         text-decoration: none;
         }
-
         footer a:hover{
         color: white;
         }
@@ -76,7 +81,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link" href="#">Home</a>
-                    <a class="nav-link active" href="#">Gallery</a>
+                    <a class="nav-link active" href="Gallery_admin.html">Gallery</a>
                     <a class="nav-link" href="#">Rincian</a>
                     <a class="nav-link" href="#">Profile</a>
                     <a href="/login"  class="btn btn-outline-dark mx2 ">Login/Sign UP</a>
@@ -94,8 +99,8 @@
             </div>
         </section>
         
-
-          <div class="container" style="margin-top: 4rem; margin-bottom: 5rem;">
+        <section class="content">
+          <div class="container" id="daftar">
           <div class="card mb-4" style="height: 15rem;">                    
             <div class="card-body d-flex align-items-center">
                 <div class="box">
@@ -117,41 +122,13 @@
                 <a href="booking.html" class="btn btn-outline-primary">View</a>
             </div>
         </div>
-          </div>
+          </div>       
 
-
-        <div class="container" style="margin-top: 4rem; margin-bottom: 5rem;">
-            <div class="row card-body d-flex align-items-center">                 
-              <div class="col">
-                <div class="box">
-                    <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%;">
-                </div>
-              </div>
-              <div class="col">
-                <h3>Danau Toba</h3>
-                <p class="card-text ml-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
-                    Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-                    vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
-                    lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
-                    mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
-                </p>
-                <div class="card-footer d-flex justify-content-between align-items-end">
-                    <small class="text-muted">Additional Info</small>
-                    <a href="booking1.html" class="btn btn-outline-primary">View</a>
-                </div>
-
-              </div>              
-            </div>
-          </div>
-
-
-        
-          <div class="container" style="margin-top: 4rem; margin-bottom: 5rem;">
+          <div class="container" id="daftar">
             <div class="card mb-4" style="height: 15rem;">                    
               <div class="card-body d-flex align-items-center">
                   <div class="box">
-                      <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%;">
+                      <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%; width: 10rem;">
                   </div>
                   <div class="penjelasan">
                   <h3>Danau toba</h3>
@@ -165,33 +142,110 @@
                   </div>
               </div>
               <div class="card-footer d-flex justify-content-between align-items-end">
-                  <small class="text-muted">Additional Info</small>
+                  <small class="text-muted">Harga paket mulai dari Rp 1.000.000.00</small>
                   <a href="booking.html" class="btn btn-outline-primary">View</a>
               </div>
           </div>
-          </div>
+            </div> 
 
-        <div class="container">
-        <div class="card mb-4" style="height: 15rem;">
-            <div class="card-body d-flex align-items-center">
-                <div class="box">
-                <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%;">
-                </div>
-                <br>
-                <p class="card-text ml-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
-                    Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-                    vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
-                    lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
-                    mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
-                </p>
-            </div>
-            <div class="card-footer d-flex justify-content-between align-items-end">
-                <small class="text-muted">Additional Info</small>
-                <a href="booking.html" class="btn btn-outline-primary">View</a>
-            </div>
-        </div>
-        </div>
+            <div class="container" id="daftar">
+                <div class="card mb-4" style="height: 15rem;">                    
+                  <div class="card-body d-flex align-items-center">
+                      <div class="box">
+                          <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%; width: 10rem;">
+                      </div>
+                      <div class="penjelasan">
+                      <h3>Danau toba</h3>
+                      <p class="card-text ml-3">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                          Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                          vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
+                          lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
+                          mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
+                      </p>
+                      </div>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between align-items-end">
+                      <small class="text-muted">Harga paket mulai dari Rp 1.000.000.00</small>
+                      <a href="booking.html" class="btn btn-outline-primary">View</a>
+                  </div>
+              </div>
+                </div> 
+
+                <div class="container" id="daftar">
+                    <div class="card mb-4" style="height: 15rem;">                    
+                      <div class="card-body d-flex align-items-center">
+                          <div class="box">
+                              <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%; width: 10rem;">
+                          </div>
+                          <div class="penjelasan">
+                          <h3>Danau toba</h3>
+                          <p class="card-text ml-3">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                              Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                              vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
+                              lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
+                              mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
+                          </p>
+                          </div>
+                      </div>
+                      <div class="card-footer d-flex justify-content-between align-items-end">
+                          <small class="text-muted">Harga paket mulai dari Rp 1.000.000.00</small>
+                          <a href="booking.html" class="btn btn-outline-primary">View</a>
+                      </div>
+                  </div>
+                    </div> 
+
+                    <div class="container" id="daftar">
+                        <div class="card mb-4" style="height: 15rem;">                    
+                          <div class="card-body d-flex align-items-center">
+                              <div class="box">
+                                  <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%; width: 10rem;">
+                              </div>
+                              <div class="penjelasan">
+                              <h3>Danau toba</h3>
+                              <p class="card-text ml-3">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                                  Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                                  vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
+                                  lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
+                                  mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
+                              </p>
+                              </div>
+                          </div>
+                          <div class="card-footer d-flex justify-content-between align-items-end">
+                              <small class="text-muted">Harga paket mulai dari Rp 1.000.000.00</small>
+                              <a href="booking.html" class="btn btn-outline-primary">View</a>
+                          </div>
+                      </div>
+                        </div> 
+
+                        <div class="container" id="daftar">
+                            <div class="card mb-4" style="height: 15rem;">                    
+                              <div class="card-body d-flex align-items-center">
+                                  <div class="box">
+                                      <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%; width: 10rem;">
+                                  </div>
+                                  <div class="penjelasan">
+                                  <h3>Danau toba</h3>
+                                  <p class="card-text ml-3">
+                                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                                      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                                      vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
+                                      lacus est accumsan est, a ornare sem ante sed diam. Ut in nibh placerat, hendrerit libero in,
+                                      mattis neque. Suspendisse dictum eros nisi, id sollicitudin tellus cursus vitae.
+                                  </p>
+                                  </div>
+                              </div>
+                              <div class="card-footer d-flex justify-content-between align-items-end">
+                                  <small class="text-muted">Harga paket mulai dari Rp 1.000.000.00</small>
+                                  <a href="booking.html" class="btn btn-outline-primary">View</a>
+                              </div>
+                          </div>
+                            </div> 
+                            </section>
+        
+           
      
         
      <footer>

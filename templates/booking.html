@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
     rel="stylesheet">
@@ -25,7 +26,7 @@
     footer {
       padding: 5vw;
       background-color:  #000000;
-      color: rgb(19, 140, 240);
+      color: rgb(19, 233, 240);
     }
 
     footer a{
@@ -60,26 +61,44 @@
 
     .small-column {
       flex: 1; /* Ukuran kolom kecil */
-      background-color: lightgreen;
+      background-color: rgb(81, 156, 153);
       padding: 10px;
       margin-bottom: 3rem;
       max-height: 30rem;
       max-width: 30rem;
     }
-    .comment{
-        background-color: rgb(27, 71, 71);
-        max-width: 100%;
-    }
    .paket, .nilai{
       display: flex;      
       justify-content: space-between; 
     }
- 
+    #content{
+      background-image: url(../static/beach.jpg);
+    }
   </style>
+  <script>
+    $(document).ready(function () {
+        listing();
+    });
+        function listing() {
+          $('content').empty
+          $.ajax({
+            type"GET",
+            url:"/booking",
+            data:{},
+            success: function(response) {
+            let articles = response["articles"];
+            for (let i = 0; i < articles.length; i++) {
+              let title = articles[i]["title"];
+              let content = articles[i]["content"];
+              let file = articles[i]['file'];
+            }
+          })
+        }
+  </script>
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg sticky-top mynavbar">
+  <nav class="navbar navbar-expand-lg transparant sticky-top mynavbar">
     <div class="container-fluid">               
           <a class="navbar-brand" href="#">NoesantaraTour Gallery</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,11 +116,11 @@
       </div>
     </nav>
 
-  <div class="d-flex-container">
+  <div class="d-flex-container" id="content">
     <!-- Kolom besar -->
     <div class="big-column text-center">
       <img src="../static/gambar.jpg" class="card-img" style="border-radius: 5%;">
-      <h3>Danau Toba</h3>
+      <h3 style="margin-top: 1.2rem;">Danau Toba</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
         Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
         vitae sodales ante ultricies tincidunt. Fusce tincidunt, quam vel elementum egestas,
@@ -163,8 +182,9 @@
   
   
   
-  <section class="comment" >
-        <div class="container">
+  
+  <footer>
+    <div class="container">
       <div class="row justify-content-center mt-5">
         <div class="col-md-6">
           <div id="disqus_thread"></div>
@@ -187,13 +207,9 @@
           </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </div>
-      </div>
-      </div>
-     </section>  
-
-  <footer>
-    <div class="container">
-      <div class="row">
+      </div>    
+  
+      <div class="row" style="margin-top: 3rem;">
         <div class="col text-left">
             <small>NoesantaraTour Gallery</small>
         </div>
