@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery | Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
+    rel="stylesheet">
+    <!-- font add start -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- font add end -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Pdf Generate -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        function cancel(){
+            window.location.href = '/'
+        }
+        function signup(){
+            window.location.href = ''
+            alert('Signup Berhasil')
+        }      
+        function generatePDF(data){
+          var printPage = document.getElementById(data).innerText;
+          var oriPage = document.body.innerHTML;
+          document.body.innerText = printPage;
+          window.print();
+          document.body.innerHTML = oriPage;
+        }
+
+        // $(document).ready(function() {
+        //     $('#print').on('click', function() {
+        //         // Buat objek jsPDF
+        //         const pdf = new jsPDF();
+
+        //         // Ambil data dari tabel HTML
+        //         const table = $('#data')[0];
+
+        //         // Konversi tabel ke dalam format PDF
+        //         pdf.autoTable({ html: table });
+
+        //         // Simpan atau tampilkan PDF
+        //         pdf.save('tabel.pdf');
+        //     });
+        // });
+    </script>
+    </script>
+    <style>
+        body{
+            width: 100%;
+            height: 100vh;
+        }
+        .content{
+            padding-top: 50px;
+            display:flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #offcanvasNavbarLabel, a{
+            text-decoration: none;
+            color: white;
+        }
+        .content{
+          width: 100%;
+          height: 100vh;
+          padding-top: 50px;
+          display: flex;
+          align-items: center;
+        }
+        .wrapper-table{
+          padding-top: 40px;
+          width: 80%;
+          height: auto;
+        }
+        h2{
+          padding-top: 30px;
+          font-size: 40px;
+          font-weight: bold;
+        }
+        .btn {
+            cursor: pointer;
+        }
+        .btn-download{
+          display: flex;
+          flex-direction: row;
+          width: 80%;
+        }
+        .bi-download{
+          margin-right: 15px;
+          border-radius: 5px;
+          box-shadow: 1px 1px 3px black;
+        }
+    </style>
+
+
+</head>
+  <body>
+<!-- navbar start -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/admin">NeosantaraTour</a>
+          <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">AdminUser01</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/admin">Dashboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Manage Data
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/user_data">User Data</a></li>
+                    <li><a class="dropdown-item" href="/tourism_data">Tourism Data</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="offcanvas-footer pb-3 p-lg-3">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><a href="#">Logout</a></h5>
+            </div>
+          </div>
+        </div>
+      </nav>
+<!-- navbar end -->
+<!-- content start -->
+      <div class="content">
+        <h2>Report User</h2>
+<!-- wrapper start -->
+        <div class="btn-download">
+          <button class="bi-download bg-primary" onclick="return generatePDF('data')">Print/Save</button>
+        </div>
+      <div class="wrapper-table">
+        <table class="table table-dark table-striped" id="data">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Email</th>
+              <th scope="col">Wisata</th>
+              <th scope="col">Paket</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1.</th>
+              <td>Bambina Sidiq</td>
+              <td>bambina26@gmail.com</td>
+              <td>Cisantana</td>
+              <td>VIP</td>
+              <td>Accepted</td>
+            </tr>
+            <tr>
+              <th scope="row">2.</th>
+              <td>Sidiq Acong</td>
+              <td>sidiq26@gmail.com</td>
+              <td>Talagadurian</td>
+              <td>Reguler</td>
+              <td>Accepted</td>
+            </tr>
+            <tr>
+              <th scope="row">3.</th>
+              <td>Bambina Yusuf</td>
+              <td>yusuf22@gmail.com</td>
+              <td>Palutungan</td>
+              <td>Reguler</td>
+              <td>Waiting</td>
+            </tr>
+            <tr>
+              <th scope="row">4.</th>
+              <td>Yusuf Sidiq</td>
+              <td>sidiqyusuf@gmail.com</td>
+              <td>Curug</td>
+              <td>VIP</td>
+              <td>Accepted</td>
+            </tr>
+            <tr>
+              <th scope="row">5.</th>
+              <td>Bambina Sidiq</td>
+              <td>bambina26@gmail.com</td>
+              <td>Cisantana</td>
+              <td>VIP</td>
+              <td>Accepted</td>
+            </tr>
+            <tr>
+              <th scope="row">6.</th>
+              <td>Sulis Nurhalis</td>
+              <td>sulis@gmail.com</td>
+              <td>Tenjolaut</td>
+              <td>VIP</td>
+              <td>Waiting</td>
+            </tr>
+            <tr>
+              <th scope="row">7.</th>
+              <td>Sang Diah</td>
+              <td>diah@gmail.com</td>
+              <td>Bali</td>
+              <td>Reguler</td>
+              <td>Waiting</td>
+            </tr>
+            <tr>
+              <th scope="row">8.</th>
+              <td>Suparman</td>
+              <td>supar@gmail.com</td>
+              <td>Cidahu</td>
+              <td>Reguler</td>
+              <td>Waiting</td>
+            </tr>
+            <tr>
+              <th scope="row">9.</th>
+              <td>Kekey</td>
+              <td>kekey@gmail.com</td>
+              <td>Ciremai</td>
+              <td>VIP</td>
+              <td>Accepted</td>
+            </tr>
+            <tr>
+              <th scope="row">10.</th>
+              <td>Dika</td>
+              <td>dikananda@gmail.com</td>
+              <td>Pangabean</td>
+              <td>Reguler</td>
+              <td>Accepted</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+<!-- wrapper end -->
+<!-- content end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
