@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery | Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
+    rel="stylesheet">
+    <!-- font add start -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- font add end -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Bulma Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        function cancel(){
+            window.location.href = '/'
+        }
+        function login(){
+            window.location.href = ''
+            alert('Login Berhasil')
+        }
+        function toggleSL(){
+            $("#fullname").toggleClass("is-hidden")
+            $("#usernameSign").toggleClass("is-hidden")
+            $("#email").toggleClass("is-hidden")
+            $("#passwordSign").toggleClass("is-hidden")
+            $("#buttonSign").toggleClass("is-hidden")
+            $("#usernameLog").toggleClass("is-hidden")
+            $("#passwordLog").toggleClass("is-hidden")
+            $("#buttonLog").toggleClass("is-hidden")
+            $("#login").toggleClass("is-hidden")
+            $("#signup").toggleClass("is-hidden")
+            $("#btnSignup").toggleClass("is-hidden")
+            $("#btnLogin").toggleClass("is-hidden")
+        }
+    </script>
+    <style>
+         body {
+        font-family: 'Work Sans', sans-serif;
+        height: auto;
+        background: linear-gradient(to bottom right, #2F4F4F, #008B8B, #00FFFF);
+        }
+        .mynavbar {
+            background-color: aqua;             
+        }
+/* content start */
+        .wrapper-form{
+            width: 100%;
+            height: 100vh;
+            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1{
+            font-family: 'Lilita One', sans-serif;
+            color: rgb(27, 71, 71);
+            font-size: 50px;
+            text-shadow: 3px 3px 6px aqua;
+        }
+        .container-content{
+            background-color: whitesmoke;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+
+        }
+        .form-container{
+            width: 30em;
+            height: 300px;
+            padding-top: 15px ;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .input-group{
+            width: 30em;
+            height: 40px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        .form-control{
+            text-align: center;
+            font-size: 16px;
+        }
+        .button-container{
+            width: 30em;
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .btn-confir{
+            width: 15em;
+            justify-content: space-between;
+            background-color: rgb(27, 71, 71);
+            color: white;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        hr{
+            border: none; /* Hapus garis bawaan */
+            height: 4px; /* Ketebalan garis */
+            background-color: black; /* Warna garis */
+            margin: 15px 0; /* Jarak atas dan bawah dari garis */
+        }
+        .container-signup{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border: 2px solid rgb(27, 71, 71);
+        }
+        .container-signup, a{
+            text-decoration: none;
+        }
+        .container-signup, p,a{
+            font-size: 20px;
+        }
+/* content end */
+        footer {
+        padding: 5vw;
+        background-color: rgb(27, 71, 71);
+        color: white;
+        }
+
+        footer a{
+        color: #0a0a0a;
+        font-weight: bold;
+        text-decoration: none;
+        }
+
+        footer a:hover{
+        color: white;
+        }
+
+        footer li {
+        list-style: none;
+        display: inline;
+        margin: 0.5rem;
+        }
+    </style>
+
+
+</head>
+  <body>
+      
+      
+      <nav class="navbar navbar-expand-lg sticky-top mynavbar">
+          <div class="container-fluid">               
+                <a class="navbar-brand" href="#">NoesantaraTour Gallery</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="#">Gallery</a>
+                    <a class="nav-link" href="#">Rincian</a>                    
+                    <button type="button" class="btn btn-info mx2" id="btnSignup" onclick="toggleSL()">Signup</button>
+                    <button type="button" class="btn btn-info mx2 is-hidden" id="btnLogin" onclick="toggleSL()">Login</button>
+                    </div>
+                </div>             
+            </div>
+          </nav>
+
+<!-- form login start -->
+<div class="wrapper-form">
+    <div class="container-content">
+                <!-- title form start -->
+                        <h1 id="login">Login</h1>
+                        <h1 class="is-hidden" id="signup">Signup</h1>
+                <!-- title form start -->
+                <div class="form-container">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group" id="passwordLog">
+                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="button-container gap-3" id="buttonLog">
+                        <button class="btn btn-confir login" onclick="login()">Login</button>
+                        <button class="btn btn-confir login" onclick="cancel()">Cancel</button>
+                    </div>
+                    <!-- Signup is-hiden -->
+                    <div class="input-group is-hidden" id="fullname">
+                        <input type="text" class="form-control" placeholder="Fullname" aria-label="fullname" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group is-hidden" id="email">
+                        <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group is-hidden" id="passwordSign" >
+                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="button-container gap-3 is-hidden" id="buttonSign">
+                        <button class="btn btn-confir login" id="buttonSign" onclick="signup()">Signup</button>
+                        <button class="btn btn-confir login" id="buttonSign" onclick="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    <!-- form login end -->
+        
+     <footer>
+        <div class="container-footer">
+          <div class="row">
+            <div class="col text-left">
+                <small>NoesantaraTour Gallery</small>
+            </div>
+
+            <div class="col text-center">
+              <small class="block">&copy; 2023 All Rights Reserved.</small>
+              <small class="block">Design by <a href="#">@FourtyEagle</a>.</small>
+            </div>
+            
+            <div class="col text-end">
+                <small>Contact us</small>
+                <br>
+                <div style="margin-left: 20px;">
+                    <li><a href="#"><i class="bi bi-instagram ml-2 mr-2"></i></a></li>
+                    <li><a href="#"><i class="bi bi-youtube"></i></a></li>
+                    <li><a href="#"><i class="bi bi-facebook ml-2 mr-2"></i></a></li>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </footer>
+              
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
