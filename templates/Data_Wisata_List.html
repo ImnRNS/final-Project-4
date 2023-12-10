@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Wisata| Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
+    rel="stylesheet">
+    <!-- font add start -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- font add end -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Pdf Generate -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+     
+   
+    <style>
+        body{
+            width: 100%;
+            height: 100vh;
+        }
+        .content{
+            padding-top: 50px;
+            display:flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #offcanvasNavbarLabel, a{
+            text-decoration: none;
+            color: white;
+        }
+        .content{
+          width: 100%;
+          height: 100vh;
+          padding-top: 50px;
+          display: flex;
+          align-items: center;
+        }
+
+        h2{
+          padding-top: 30px;
+          font-size: 40px;
+          font-weight: bold;
+          margin-bottom: 3rem;
+        }
+        #alat1{
+          margin-right: 16rem;
+        }
+
+    </style>
+
+
+</head>
+  <body>
+<!-- navbar start -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/admin">NeosantaraTour</a>
+          <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">AdminUser01</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/admin">Dashboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Manage Data
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/user_data">User Data</a></li>
+                    <li><a class="dropdown-item" href="/tourism_data">Tourism Data</a></li>
+                    <li><a class="dropdown-item" href="/data_Wisata">Data Wisata</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="offcanvas-footer pb-3 p-lg-3">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><a href="#">Logout</a></h5>
+            </div>
+          </div>
+        </div>
+    </nav>
+<!-- navbar end -->
+<!-- content start -->
+      <div class="content">
+        <h2>DAFTAR LIST WISATA</h2>
+<!-- wrapper start -->
+<section class="search">
+  <div class="container">
+      <div class="row align-items-center">
+          <div class="col" id="alat1">
+          <button type="button" class="btn btn-dark" style="width: 15rem;">Tambahkan Destinasi</button>
+          </div>
+          <div class="col" id="alat2">                    
+          <div class="container d-flex justify-content-end">
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Mau cari yang mana?" aria-label="Search" style="width: 25rem;">
+                  <button class="btn btn-outline-dark" type="submit" alt="search">Search</button>
+                </form>
+          </div>                
+          </div>
+      </div>
+  </div>
+  </section>
+
+  <section class="content" id="list">
+          <div class="container">
+          <div class="card mb-4" style="height: 8rem;">                    
+            <div class="card-body d-flex align-items-center">               
+                <h3 style="margin-right: 2rem;">Danau toba</h3>
+                <p class="card-text ml-3"style="margin-right: 3rem;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                    Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                    vitae sodales ante ultricies tincidunt. 
+                </p>
+                <div class="d-flex">
+                  <a href="/list/Edit" class="btn btn-outline-success">EDIT</a>            
+                  <a href="/list/Delete" class="btn btn-outline-danger ms-2">HAPUS</a>   
+                  </div>         
+            </div>             
+        </div>
+          </div>
+
+          <div class="container">
+            <div class="card mb-4" style="height: 8rem;">                    
+              <div class="card-body d-flex align-items-center">               
+                  <h3 style="margin-right: 2rem;">Danau toba</h3>
+                  <p class="card-text ml-3"style="margin-right: 3rem;">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                      vitae sodales ante ultricies tincidunt. 
+                  </p>
+                  <div class="d-flex">
+                    <a href="/list/Edit" class="btn btn-outline-success">EDIT</a>            
+                    <a href="/list/Delete" class="btn btn-outline-danger ms-2">HAPUS</a>   
+                   </div>           
+              </div>             
+          </div>
+            </div>
+          
+          <div class="container">
+            <div class="card mb-4" style="height: 8rem;">                    
+              <div class="card-body d-flex align-items-center">               
+                  <h3 style="margin-right: 2rem;">Danau toba</h3>
+                  <p class="card-text ml-3"style="margin-right: 3rem;">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
+                      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
+                      vitae sodales ante ultricies tincidunt. 
+                  </p>
+                  <div class="d-flex">
+                  <a href="/list/Edit" class="btn btn-outline-success">EDIT</a>            
+                  <a href="/list/Delete" class="btn btn-outline-danger ms-2">HAPUS</a>   
+                  </div>        
+              </div>             
+          </div>
+            </div>       
+  </section>
+</div>      
+<!-- content end -->
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
