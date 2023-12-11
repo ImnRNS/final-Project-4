@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gallery | Page</title>
+    <title>LOSIG</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
     href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
     rel="stylesheet">
@@ -24,7 +22,8 @@
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
+    <!-- font -->
+    <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet">
     <script>
         function cancel(){
             window.location.href = '/'
@@ -51,12 +50,33 @@
     <style>
          body {
         font-family: 'Work Sans', sans-serif;
+        font-family: 'Playfair Display', serif;
         height: auto;
         background: linear-gradient(to bottom right, #2F4F4F, #008B8B, #00FFFF);
         }
-        .mynavbar {
-            background-color: aqua;             
-        }
+        #brand {
+        font-family: 'sacramento', cursive;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    .navbar {
+      padding: 1rem;        
+    }
+
+    .navbar a {
+      color: rgb(42, 42, 43);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+      color: rgb(128, 122, 122);
+    }
+    /* .ms-auto{
+        padding-left: 15rem;
+       margin-left: 20rem!important;  
+    } */
 /* content start */
         .wrapper-form{
             width: 100%;
@@ -68,9 +88,10 @@
             justify-content: center;
         }
         h1{
-            font-family: 'Lilita One', sans-serif;
+            font-family: 'Playfair Display', serif;
             color: rgb(27, 71, 71);
-            font-size: 50px;
+            font-size: 3rem;
+            font-weight: 500!important;
             text-shadow: 3px 3px 6px aqua;
         }
         .container-content{
@@ -138,18 +159,17 @@
             font-size: 20px;
         }
 /* content end */
-        footer {
-        padding: 5vw;
-        background-color: rgb(27, 71, 71);
-        color: white;
+footer {
+        padding: 6vw;
+        background-color:  #000000;
+        color: rgb(19, 233, 240);
         }
 
         footer a{
-        color: #0a0a0a;
+        color: #f5f1f1;
         font-weight: bold;
         text-decoration: none;
         }
-
         footer a:hover{
         color: white;
         }
@@ -158,7 +178,7 @@
         list-style: none;
         display: inline;
         margin: 0.5rem;
-        }
+        } 
     </style>
 
 
@@ -166,30 +186,49 @@
   <body>
       
       
-      <nav class="navbar navbar-expand-lg sticky-top mynavbar">
-          <div class="container-fluid">               
-                <a class="navbar-brand" href="#">NoesantaraTour Gallery</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand navbar-start">
+                <a class="navbar-item" id="brand" href="#">
+                    NoesantaraTour Gallery
+                </a>
+                <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarNavAltMarkup">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                    <a class="nav-link" href="#">Home</a>
-                    <a class="nav-link" href="#">Gallery</a>
-                    <a class="nav-link" href="#">Rincian</a>                    
-                    <button type="button" class="btn btn-info mx2" id="btnSignup" onclick="toggleSL()">Signup</button>
-                    <button type="button" class="btn btn-info mx2 is-hidden" id="btnLogin" onclick="toggleSL()">Login</button>
-                    </div>
-                </div>             
             </div>
-          </nav>
+            <div id="navbarNavAltMarkup" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="homepage.html">Home</a>
+                    <a class="navbar-item" href="Gallery_page.html">Gallery</a>
+                    <a class="navbar-item" href="#">Rincian</a>
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <button class="button is-dark" id="btnSignup" onclick="toggleSL()">
+                                Signup
+                            </button>
+                            <button class="button is-dark is-hidden" id="btnLogin" onclick="toggleSL()">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
 
 <!-- form login start -->
 <div class="wrapper-form">
     <div class="container-content">
                 <!-- title form start -->
-                        <h1 id="login">Login</h1>
-                        <h1 class="is-hidden" id="signup">Signup</h1>
+                        <h1 id="login">LOGIN</h1>
+                        <h1 class="is-hidden" id="signup">SIGN UP</h1>
                 <!-- title form start -->
                 <div class="form-container">
                     <div class="input-group">
