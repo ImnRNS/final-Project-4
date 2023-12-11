@@ -23,28 +23,67 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <!-- font -->
-    <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet"> -->
     <script>
         function cancel(){
             window.location.href = '/'
-        }
-        function login(){
-            window.location.href = ''
-            alert('Login Berhasil')
         }
         function toggleSL(){
             $("#fullname").toggleClass("is-hidden")
             $("#usernameSign").toggleClass("is-hidden")
             $("#email").toggleClass("is-hidden")
-            $("#passwordSign").toggleClass("is-hidden")
             $("#buttonSign").toggleClass("is-hidden")
             $("#usernameLog").toggleClass("is-hidden")
-            $("#passwordLog").toggleClass("is-hidden")
             $("#buttonLog").toggleClass("is-hidden")
             $("#login").toggleClass("is-hidden")
             $("#signup").toggleClass("is-hidden")
             $("#btnSignup").toggleClass("is-hidden")
             $("#btnLogin").toggleClass("is-hidden")
+        }
+
+        function sign_in(){
+            let username = $("#input-username").val();
+            let password = $("#input-password").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password,
+                },
+                success: function (response) {
+                    if (response["result"] === "success") {
+                    $.cookie("mytoken", response["token"], { path: "/" });
+                    window.location.replace("/");
+                    } else {
+                    alert(response["msg"]);
+                    }
+                },
+                });
+        }
+
+        function sign_up(){
+            let fullname = $("#input-fullname").val();
+            let username = $("#input-username").val();
+            let email = $("#input-email").val();
+            let password = $("#input-password").val();
+            console.log(fullname ,username, email, password);
+
+            $.ajax({
+                type: "POST",
+                url: "/sign_up/save",
+                data: {
+                    fullname_give: fullname,
+                    username_give: username,
+                    email_give: email,
+                    password_give: password,
+                },
+                success: function (response) {
+                    alert("Your are signed up! Nice!");
+                    window.location.replace("/logup");
+                },
+                });
         }
     </script>
     <style>
@@ -200,8 +239,8 @@ footer {
             </div>
             <div id="navbarNavAltMarkup" class="navbar-menu">
                 <div class="navbar-end">
-                    <a class="navbar-item" href="homepage.html">Home</a>
-                    <a class="navbar-item" href="Gallery_page.html">Gallery</a>
+                    <a class="navbar-item" href="/">Home</a>
+                    <a class="navbar-item" href="/Gallery_page">Gallery</a>
                     <a class="navbar-item" href="#">Rincian</a>
                 </div>
                 <div class="navbar-end">
@@ -232,27 +271,24 @@ footer {
                 <!-- title form start -->
                 <div class="form-container">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group" id="passwordLog">
-                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="button-container gap-3" id="buttonLog">
-                        <button class="btn btn-confir login" onclick="login()">Login</button>
-                        <button class="btn btn-confir login" onclick="cancel()">Cancel</button>
+                        <input type="text" class="form-control" id="input-username" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
                     </div>
                     <!-- Signup is-hiden -->
                     <div class="input-group is-hidden" id="fullname">
-                        <input type="text" class="form-control" placeholder="Fullname" aria-label="fullname" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" id="input-fullname" placeholder="Fullname" aria-label="fullname" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group is-hidden" id="email">
-                        <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                        <input type="email" class="form-control" id="input-email" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
                     </div>
-                    <div class="input-group is-hidden" id="passwordSign" >
-                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                    <div class="input-group" id="passwordLog">
+                        <input type="password" class="form-control" id="input-password" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="button-container gap-3" id="buttonLog">
+                        <button class="btn btn-confir login" onclick="sign_in()">Login</button>
+                        <button class="btn btn-confir login" onclick="cancel()">Cancel</button>
                     </div>
                     <div class="button-container gap-3 is-hidden" id="buttonSign">
-                        <button class="btn btn-confir login" id="buttonSign" onclick="signup()">Signup</button>
+                        <button class="btn btn-confir login" id="buttonSign" onclick="sign_up()">Signup</button>
                         <button class="btn btn-confir login" id="buttonSign" onclick="cancel()">Cancel</button>
                     </div>
                 </div>
