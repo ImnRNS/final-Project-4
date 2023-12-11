@@ -1,51 +1,46 @@
-from flask import Flask, render_template, request
-from pymongo import MongoClient
-from datetime import datetime, timedelta
-import hashlib
-
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
-
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
-
-MONGODB_URI = os.environ.get("MONGODB_URI")
-DB_NAME =  os.environ.get("DB_NAME")
-
-client = MongoClient(MONGODB_URI)
-db = client[DB_NAME]
-
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect,
+    url_for,
+)
 app = Flask(__name__)
 
-@app.route('/logup')
-def logup():
-    return render_template('logup.html')
+# Dummy database for demonstration purposes
+users = {'admin': 'admin_password', 'visitor': 'visitor_password'}
 
-@app.route('/gallery_page')
-def gallery_page():
-    return render_template('Gallery_page.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-@app.route('/booking')
-def booking():
-    return render_template('booking.html')
+        # Check if the username contains only letters
+        if username.isalpha():
+            if username in users and users[username] == password:
+                return redirect(url_for('visitor_home'))
+            else:
+                return render_template('login.html', error='Invalid credentials for visitor.')
+        # Check if the username contains both letters and numbers
+        elif username.isalnum():
+            if username in users and users[username] == password:
+                return redirect(url_for('admin_home'))
+            else:
+                return render_template('login.html', error='Invalid credentials for admin.')
+        else:
+            return render_template('login.html', error='Invalid username format.')
 
-# admin route
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
+    return render_template('login.html', error=None)
 
-@app.route('/user_data')
-def user_data():
-    return render_template('user_data.html')
+@app.route('/visitor_home')
+def visitor_home():
+    return jsonify({'msg': 'Welcome, Visitor!'}) 
 
-@app.route('/tourism_data')
-def tourism_data():
-    return render_template('tourism_data.html')
-
-@app.route('/datawisata_list')
-def datawisata_list():
-    return render_template('datawisata_list.html')
+@app.route('/admin_home')
+def admin_home():
+    return jsonify({'msg': 'Welcome, Admin!'}) 
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
