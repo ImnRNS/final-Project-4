@@ -8,6 +8,7 @@
     <link
     href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
     rel="stylesheet">
+ 
     <!-- font add start -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,33 +21,8 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <!-- font -->
-    <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet">
-    <script>
-        function cancel(){
-            window.location.href = '/'
-        }
-        function login(){
-            window.location.href = ''
-            alert('Login Berhasil')
-        }
-        function toggleSL(){
-            $("#fullname").toggleClass("is-hidden")
-            $("#usernameSign").toggleClass("is-hidden")
-            $("#email").toggleClass("is-hidden")
-            $("#passwordSign").toggleClass("is-hidden")
-            $("#buttonSign").toggleClass("is-hidden")
-            $("#usernameLog").toggleClass("is-hidden")
-            $("#passwordLog").toggleClass("is-hidden")
-            $("#buttonLog").toggleClass("is-hidden")
-            $("#login").toggleClass("is-hidden")
-            $("#signup").toggleClass("is-hidden")
-            $("#btnSignup").toggleClass("is-hidden")
-            $("#btnLogin").toggleClass("is-hidden")
-        }
-    </script>
     <style>
          body {
         font-family: 'Work Sans', sans-serif;
@@ -180,8 +156,107 @@ footer {
         margin: 0.5rem;
         } 
     </style>
+    <script> 
+    function sign_in() {
+        let username = $("#input-username").val();
+        let password = $("#input-password2").val();
+       
+        $.ajax({
+          type: "POST",
+          url: "/sign_in",
+          data: {
+            username_give: username,
+            password_give: password,
+          },
+          success: function (response) {
+            if (response["result"] === "success") {
+              $.cookie("mytoken", response["token"], { path: "/" });
+              window.location.replace("/");
+            } else {
+              alert(response["msg"]);
+            }
+          },
+        });
+      }
+    //         // Fungsi untuk login
+    // function login() {
+    //     let username = $("#input-username").val();
+    //     let password = $("#input-password2").val();
 
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '/login',
+    //         data: {
+    //             username_give: username,
+    //             password_give: password
+    //         },
+    //         success: function (response) {
+    //             if (response.redirect) {
+    //                 window.location.href = response.redirect;
+    //             } else {
+    //                 alert(response.message);
+    //             }
+    //         }
+    //     });
+    // } 
 
+// Fungsi untuk signup   
+function sign_up(){
+    let fullname = $("#input-fullname").val();
+    let username = $("#input-username").val();
+    let email = $("#input-email").val();
+    let password = $("#input-password").val();
+
+    $.ajax({
+        type: "POST",
+        url: "/sign_up",
+        data: {
+            fullname_give: fullname,
+            username_give: username,
+            email_give: email,
+            password_give: password,
+        },
+        success: function (response) {
+            if (response["result"] === "success") {
+                        alert("Pendaftaran Member Sukses!");
+                        window.location.href = "/login"
+            } else {
+                alert(response.message);
+            }
+        }
+    });
+}
+
+$(document).ready(function() {
+    // Event handler untuk tombol login dan signup
+    $('.btn-confir.sign_in').click(function () {
+        if ($(this).text() === 'sign_in') {
+            sign_in();
+        } else if ($(this).text() === 'Signup') { // Ganti 'Sign_up' menjadi 'Signup'
+        sign_up();
+    } else if ($(this).text() === 'Cancel') {
+        cancel();
+    }
+});
+});
+function toggleSL() {
+    $("#fullname").toggleClass("is-hidden");
+    $("#usernameSign").toggleClass("is-hidden");
+    $("#email").toggleClass("is-hidden");
+    $("#passwordSign").toggleClass("is-hidden");
+    $("#buttonSign").toggleClass("is-hidden");
+    $("#usernameLog").toggleClass("is-hidden");
+    $("#passwordLog").toggleClass("is-hidden");
+    $("#buttonLog").toggleClass("is-hidden");
+    $("#login").toggleClass("is-hidden");
+    $("#signup").toggleClass("is-hidden");
+    $("#btnSignup").toggleClass("is-hidden");
+    $("#btnLogin").toggleClass("is-hidden");
+}
+function cancel() {
+    window.location.href = '/';}
+ 
+    </script>
 </head>
   <body>
       
@@ -200,9 +275,9 @@ footer {
             </div>
             <div id="navbarNavAltMarkup" class="navbar-menu">
                 <div class="navbar-end">
-                    <a class="navbar-item" href="homepage.html">Home</a>
-                    <a class="navbar-item" href="Gallery_page.html">Gallery</a>
-                    <a class="navbar-item" href="#">Rincian</a>
+                    <a class="navbar-item" href="/">Home</a>
+                    <a class="navbar-item" href="/Gallery">Gallery</a>
+                   <!-- <a class="navbar-item" href="#">Rincian</a>   -->
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
@@ -219,10 +294,6 @@ footer {
             </div>
         </div>
     </nav>
-    
-    
-    
-
 <!-- form login start -->
 <div class="wrapper-form">
     <div class="container-content">
@@ -232,27 +303,27 @@ footer {
                 <!-- title form start -->
                 <div class="form-container">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" id="input-username" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group" id="passwordLog">
-                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                        <input type="password" class="form-control" id="input-password2" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
                     </div>
                     <div class="button-container gap-3" id="buttonLog">
-                        <button class="btn btn-confir login" onclick="login()">Login</button>
+                        <button class="btn btn-confir sign_in" onclick="sign_in()">Login</button>
                         <button class="btn btn-confir login" onclick="cancel()">Cancel</button>
                     </div>
                     <!-- Signup is-hiden -->
                     <div class="input-group is-hidden" id="fullname">
-                        <input type="text" class="form-control" placeholder="Fullname" aria-label="fullname" aria-describedby="basic-addon1">
-                    </div>
+                        <input type="text" class="form-control" id="input-fullname" placeholder="Fullname" aria-label="fullname" aria-describedby="basic-addon1">
+                    </div>                    
                     <div class="input-group is-hidden" id="email">
-                        <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                        <input type="email" class="form-control" id="input-email" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group is-hidden" id="passwordSign" >
-                        <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                        <input type="password" class="form-control" id="input-password" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
                     </div>
                     <div class="button-container gap-3 is-hidden" id="buttonSign">
-                        <button class="btn btn-confir login" id="buttonSign" onclick="signup()">Signup</button>
+                        <button class="btn btn-confir login" id="buttonSign" onclick="sign_up()">Signup</button>
                         <button class="btn btn-confir login" id="buttonSign" onclick="cancel()">Cancel</button>
                     </div>
                 </div>
