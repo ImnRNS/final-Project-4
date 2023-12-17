@@ -16,9 +16,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <!-- font add end -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
     <!-- Pdf Generate -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
      
    
     <style>
@@ -43,17 +49,86 @@
           display: flex;
           align-items: center;
         }
-
+        #logout{
+          width: 23rem!important; 
+          background-color: aliceblue;
+        }
         h2{
           padding-top: 30px;
           font-size: 40px;
           font-weight: bold;
           margin-bottom: 3rem;
         } 
-
     </style>
+  
+    <script>
+// $(document).ready(function () {
+//     listing();  
+// });
 
+$(document).ready(function () {
+      $('#logout').click(function () {
+        logout();
+      });
+    });  
 
+    function logout() {
+    $.removeCookie('MYLAST', { path: '/' });
+    alert('Signed out!');
+    window.location.href = ("/");
+}
+
+// function listing() {
+//     $.ajax({
+//         type: "GET",
+//         url: "/wisata_request",
+//         cache: false,
+//         data: {},
+//         success: function (response) {
+//             let data_wisata = response["articles"]["data_wisata"];
+//             let user_data = response["articles"]["user_data"];
+
+//             for (let i = 0; i < data_wisata.length; i++) {
+//                 let title = data_wisata[i]["title"];
+//                 let file = data_wisata[i]['file'];
+//                 let paket = data_wisata[i]['paket'];
+//                 let temp_html = `
+//                     <tr>
+//                         <th scope="row">${i + 1}</th>
+//                         <td>${user_data['username']}</td>
+//                         <td>${title}</td>
+//                         <td>${paket}</td>
+//                         <td class="d-flex">
+//                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">
+//                                 Lihat
+//                             </button>
+//                             <div class="modal fade" id="exampleModal${i}" tabindex="-1" aria-labelledby="exampleModalLabel${i}" aria-hidden="true">
+//                                 <div class="modal-dialog">
+//                                     <div class="modal-content">
+//                                         <div class="modal-header">
+//                                             <h5 class="modal-title" id="exampleModalLabel${i}">Pratinjau Gambar</h5>
+//                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//                                         </div>
+//                                         <div class="modal-body">
+//                                             <img src="../${file}" alt="Pratinjau Gambar" style="width: 100%;">
+//                                         </div>
+//                                         <div class="modal-footer">
+//                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                             <a href="/list/Delete" class="btn btn-outline-success ms-2">Diterima</a>
+//                         </td>
+//                     </tr>
+//                 `;
+//                 $("#daftar-item").append(temp_html);
+//             }
+//         },
+//     });
+// }
+   
+   </script>
 </head>
   <body>
 <!-- navbar start -->
@@ -65,29 +140,29 @@
             <a class="navbar-brand" href="/admin">NeosantaraTour</a>
           <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">AdminUser01</h5>
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">{{ user_info.username }}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/admin">Dashboard</a>
+                  <a class="nav-link active" aria-current="page" onclick="return false;" href="/admin">Dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Manage Data
                   </a>
                   <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/tourism_data">Tourism Data</a></li>
-                      <li><a class="dropdown-item" href="/user_data">Data View</a></li>
-                    <li><a class="dropdown-item" href="/data_Wisata">Data Wisata</a></li>
+                    <li><a class="dropdown-item" href="/data_view">Data View</a></li>
+                    <li><a class="dropdown-item" href="/data_wisata">Data Wisata</a></li>
                   </ul>
                 </li>
               </ul>
             </div>
-            <div class="offcanvas-footer pb-3 p-lg-3">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><a href="#">Logout</a></h5>
-            </div>
+            <!-- <div class="offcanvas-footer pb-3 p-lg-3">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5> -->
+                <button class="btn btn-outline-danger" id="logout" onclick="logout()">Log out</button>
+            <!-- </div> -->
           </div>
         </div>
     </nav>
@@ -107,7 +182,7 @@
                 <th scope="col">KONFIRMASI</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="daftar-item">
               <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
@@ -136,35 +211,7 @@
                     <a href="/list/Delete" class="btn btn-outline-success ms-2">Diterima</a>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>DANAU TOBA</td>
-                <td>PAKET VIP</td>
-                <td class="d-flex">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Lihat
-                    </button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Pratinjau Gambar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="../static/bali.jpg" alt="Pratinjau Gambar" style="width: 100%;">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="/list/Delete" class="btn btn-outline-success ms-2">Diterima</a>
-                </td>
-              </tr>
-              <tr>
+               <!-- <tr>
                 <th scope="row">3</th>
                 <td>Mark</td>
                 <td>DANAU TOBA</td>
@@ -191,7 +238,7 @@
                     </div>
                     <a href="/list/Delete" class="btn btn-outline-success ms-2">Diterima</a>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
   </section>

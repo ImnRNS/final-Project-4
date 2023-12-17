@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LOSIG</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap"
+    rel="stylesheet">
+ 
+    <!-- font add start -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <!-- font add end -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Bulma Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <style>
+         body {
+        font-family: 'Work Sans', sans-serif;
+        font-family: 'Playfair Display', serif;
+        height: auto;
+        background: linear-gradient(to bottom right, #2F4F4F, #1f6d6d, #0e31cc);
+        }
+        #brand {
+        font-family: 'sacramento', cursive;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    .navbar {
+      padding: 1rem;        
+    }
+
+    .navbar a {
+      color: rgb(42, 42, 43);
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+      color: rgb(128, 122, 122);
+    }
+    /* .ms-auto{
+        padding-left: 15rem;
+       margin-left: 20rem!important;  
+    } */
+/* content start */
+        .wrapper-form{
+            width: 100%;
+            height: 100vh;
+            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1{
+            font-family: 'Playfair Display', serif;
+            color: rgb(27, 71, 71);
+            font-size: 3rem;
+            font-weight: 500!important;
+            text-shadow: 3px 3px 6px aqua;
+        }
+        .container-content{
+            background-color: whitesmoke;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+
+        }
+        .form-container{
+            width: 30em;
+            height: 300px;
+            padding-top: 15px ;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .input-group{
+            width: 30em;
+            height: 40px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        .form-control{
+            text-align: center;
+            font-size: 16px;
+        }
+        .button-container{
+            width: 30em;
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .btn-confir{
+            width: 15em;
+            justify-content: space-between;
+            background-color: rgb(27, 71, 71);
+            color: white;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        hr{
+            border: none; /* Hapus garis bawaan */
+            height: 4px; /* Ketebalan garis */
+            background-color: black; /* Warna garis */
+            margin: 15px 0; /* Jarak atas dan bawah dari garis */
+        }
+        .container-signup{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border: 2px solid rgb(27, 71, 71);
+        }
+        .container-signup, a{
+            text-decoration: none;
+        }
+        .container-signup, p,a{
+            font-size: 20px;
+        }
+/* content end */
+footer {
+        padding: 6vw;
+        background-color:  #000000;
+        color: rgb(19, 233, 240);
+        }
+
+        footer a{
+        color: #f5f1f1;
+        font-weight: bold;
+        text-decoration: none;
+        }
+        footer a:hover{
+        color: white;
+        }
+
+        footer li {
+        list-style: none;
+        display: inline;
+        margin: 0.5rem;
+        } 
+    </style>
+    <script> 
+    // function sign_in() {
+    //     let username = $("#input-username").val();
+    //     let password = $("#input-password2").val();
+       
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "/sign_in_admin",
+    //       data: {
+    //         username_give: username,
+    //         password_give: password,
+    //       },
+    //       success: function (response) {
+    //         if (response["result"] === "success") {
+    //           $.cookie("MYLAST", response["token"], { path: "/" });
+    //           window.location.replace("/home");
+    //         } else {
+    //           alert(response["msg"]);
+    //         }
+    //       },
+    //     });
+    //   }
+    
+    function sign_in() {
+    let username = $("#input-username").val();
+    let password = $("#input-password2").val();
+
+    $.ajax({
+        type: "POST",
+        url: "/sign_in_admin",
+        contentType: "application/json",  // Tambahkan baris ini
+        data: JSON.stringify({
+            username_give: username,
+            password_give: password,
+        }),
+        success: function (response) {
+            if (response["result"] === "success") {
+                $.cookie("MYLAST", response["token"], { path: "/" });
+                window.location.replace("/home");
+            } else {
+                alert(response["msg"]);  // Sesuaikan dengan kunci yang benar
+            }
+        },
+    });
+}
+function sign_up() {
+    let username = $("#input-username").val();
+    let email = $("#input-email").val();
+    let admin_key = $("#input-admin-key").val();  // Ganti fullname dengan admin_key
+    let password = $("#input-password").val();
+
+    $.ajax({
+        type: "POST",
+        url: "/admin_signup",
+        contentType: "application/json",
+        data: JSON.stringify({
+            admin_key: admin_key,  // Ganti fullname_give dengan admin_key
+            username_give: username,
+            email_give: email,
+            password_give: password,
+        }),
+        success: function (response) {
+            if (response["result"] === "success") {
+                alert("Pendaftaran Admin Sukses!");
+                window.location.href = "/login_admin";
+            } else {
+                alert(response["msg"]);
+            }
+        },
+    });
+}
+
+// // Fungsi untuk signup   
+// function sign_up(){
+//     let fullname = $("#input-fullname").val();
+//     let username = $("#input-username").val();
+//     let email = $("#input-email").val();
+//     let password = $("#input-password").val();
+
+//     $.ajax({
+//         type: "POST",
+//         url: "/admin_signup",
+//         data: {
+//             fullname_give: fullname,
+//             username_give: username,
+//             email_give: email,
+//             password_give: password,
+//         },
+//         success: function (response) {
+//             if (response["result"] === "success") {
+//                         alert("Pendaftaran Member Sukses!");
+//                         window.location.href = "/login"
+//             } else {
+//                 alert(response.message);
+//             }
+//         }
+//     });
+// }
+
+$(document).ready(function() {
+    // Event handler untuk tombol login dan signup
+    $('.btn-confir.sign_in').click(function () {
+        if ($(this).text() === 'sign_in') {
+            sign_in();
+        } else if ($(this).text() === 'Signup') { // Ganti 'Sign_up' menjadi 'Signup'
+        sign_up();
+    } else if ($(this).text() === 'Cancel') {
+        cancel();
+    }
+});
+});
+function toggleSL() {
+    $("#fullname").toggleClass("is-hidden");
+    $("#usernameSign").toggleClass("is-hidden");
+    $("#email").toggleClass("is-hidden");
+    $("#passwordSign").toggleClass("is-hidden");
+    $("#buttonSign").toggleClass("is-hidden");
+    $("#usernameLog").toggleClass("is-hidden");
+    $("#passwordLog").toggleClass("is-hidden");
+    $("#buttonLog").toggleClass("is-hidden");
+    $("#login").toggleClass("is-hidden");
+    $("#signup").toggleClass("is-hidden");
+    $("#btnSignup").toggleClass("is-hidden");
+    $("#btnLogin").toggleClass("is-hidden");
+}
+function cancel() {
+    window.location.href = '/';}
+ 
+    </script>
+</head>
+  <body>
+      
+      
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand navbar-start">
+                <a class="navbar-item" id="brand" href="#">
+                    NoesantaraTour Gallery
+                </a>
+                <button class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarNavAltMarkup">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div id="navbarNavAltMarkup" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="/">Home</a>
+                    <a class="navbar-item" href="/Gallery">Gallery</a>
+                   <!-- <a class="navbar-item" href="#">Rincian</a>   -->          
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <button class="button is-dark" id="btnSignup" onclick="toggleSL()">
+                                Signup
+                            </button>
+                            <button class="button is-dark is-hidden" id="btnLogin" onclick="toggleSL()">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+<!-- form login start -->
+<div class="wrapper-form">
+    <div class="container-content">
+                <!-- title form start -->
+                        <h1 id="login">LOGIN</h1>
+                        <h1 class="is-hidden" id="signup">SIGN UP</h1>
+                <!-- title form start -->
+                <div class="form-container">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="input-username" placeholder="Username" aria-label="username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group" id="passwordLog">
+                        <input type="password" class="form-control" id="input-password2" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="button-container gap-3" id="buttonLog">
+                        <button class="btn btn-confir sign_in" onclick="sign_in()">Login</button>
+                        <button class="btn btn-confir login" onclick="cancel()">Cancel</button> 
+                    </div>
+                    <!-- Signup is-hiden -->
+                    <div class="input-group is-hidden" id="fullname">
+                        <input type="text" class="form-control" id="input-admin-key" placeholder="admin_key" aria-label="admin_key" aria-describedby="basic-addon1">
+ 
+                    </div>                    
+                    <div class="input-group is-hidden" id="email">
+                        <input type="email" class="form-control" id="input-email" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group is-hidden" id="passwordSign" >
+                        <input type="password" class="form-control" id="input-password" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                     </div>                    
+                    <div class="button-container gap-3 is-hidden" id="buttonSign">
+                        <button class="btn btn-confir login" id="buttonSign" onclick="sign_up()">Signup</button>
+                        <button class="btn btn-confir login" id="buttonSign" onclick="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    <!-- form login end -->
+        
+     <footer>
+        <div class="container-footer">
+          <div class="row">
+            <div class="col text-left">
+                <small>NoesantaraTour Gallery</small>
+            </div>
+
+            <div class="col text-center">
+              <small class="block">&copy; 2023 All Rights Reserved.</small>
+              <small class="block">Design by <a href="#">@FourtyEagle</a>.</small>
+            </div>
+            
+            <div class="col text-end">
+                <small>Contact us</small>
+                <br>
+                <div style="margin-left: 20px;">
+                    <li><a href="#"><i class="bi bi-instagram ml-2 mr-2"></i></a></li>
+                    <li><a href="#"><i class="bi bi-youtube"></i></a></li>
+                    <li><a href="#"><i class="bi bi-facebook ml-2 mr-2"></i></a></li>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </footer>             
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

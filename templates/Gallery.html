@@ -69,6 +69,10 @@
         margin-left: 2rem;   
         } 
 
+        .ms-auto{
+          margin-left: 28vw!important;
+        }
+
         footer {
         padding: 6vw;
         background-color:  #000000;
@@ -92,58 +96,182 @@
     
 </style>  
 <script>
-        $(document).ready(function () {
-        listing();        
-      });
-     function listing() {
-        $.ajax({
-          type: "GET",
-          url: "/gallery_list",
-          cache: false,
-          data: {},
-          success: function (response) {
-              let articles = response["articles"];
-              for (let i = 0; i < articles.length; i++) {
-              let title = articles[i]["title"];
-              let description = articles[i]["description"];
-              let file = articles[i]['file'];
-              let harga = articles[i]['paket1']['harga'];
-              let temp_html = `            
-              <div class="content list container" id="daftar">              
-            <div class="card mb-4 text-bg-secondary" style="height: 15rem;">                    
-              <div class="card-body d-flex align-items-center">
-                  <div class="box">
-                      <img src="../${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
-                  </div>
-                  <div class="penjelasan">
-                  <h3>${title}</h3>
-                  <p class="card-text ml-3">
-                      ${description}
-                  </p>
-                  </div>
-              </div>
-              <div class="card-footer d-flex justify-content-between align-items-end">
-                  <small class="text-muted">Harga paket mulai dari ${harga}</small>
-                  <a href="/Booking" class="btn btn-outline-info">View</a>
-              </div>
-          </div>  
-          </div>           
-                `;
-              $("#wisata").append(temp_html);
-            }
-          },
-        });
-      }
+    //     $(document).ready(function () {
+    //     listing();        
+    //   });
+    //  function listing() {
+    //     $.ajax({
+    //       type: "GET",
+    //       url: "/gallery_list",
+    //       cache: false,
+    //       data: {},
+    //       success: function (response) {
+    //           let articles = response["articles"];
+    //           for (let i = 0; i < articles.length; i++) {
+    //           let title = articles[i]["title"];
+    //           let description = articles[i]["description"];
+    //           let file = articles[i]['file'];
+    //           let harga = articles[i]['paket1']['harga'];
+    //           let temp_html = `            
+    //           <div class="content list container" id="daftar">              
+    //         <div class="card mb-4 text-bg-secondary" style="height: 15rem;">                    
+    //           <div class="card-body d-flex align-items-center">
+    //               <div class="box">
+    //                   <img src="../${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
+    //               </div>
+    //               <div class="penjelasan">
+    //               <h3>${title}</h3>
+    //               <p class="card-text ml-3">
+    //                   ${description}
+    //               </p>
+    //               </div>
+    //           </div>
+    //           <div class="card-footer d-flex justify-content-between align-items-end">
+    //               <small class="text-muted">Harga paket mulai dari ${harga}</small>
+    //               <a href="/Booking" class="btn btn-outline-info">View</a>
+    //           </div>
+    //       </div>  
+    //       </div>           
+    //             `;
+    //           $("#wisata").append(temp_html);
+    //         }
+    //       },
+    //     });
+    //   }
     
- 
+    $(document).ready(function () {
+    listing();        
+});
+
+function listing() {
+    $.ajax({
+        type: "GET",
+        url: "/gallery_list",
+        cache: false,
+        data: {},
+        success: function (response) {
+            let articles = response["articles"];
+            for (let i = 0; i < articles.length; i++) {
+                let id = articles[i]["id"];
+                let title = articles[i]["title"];
+                let description = articles[i]["description"];
+                let file = articles[i]['file'];
+                let hargaPaket1 = articles[i]['harga_paket1'];
+                let temp_html = `
+                    <div class="content list container" id="daftar">
+                        <div class="card mb-4 text-bg-secondary" style="height: 15rem;">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="box">
+                                    <img src="../${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
+                                </div>
+                                <div class="penjelasan">
+                                    <h3>${title}</h3>
+                                    <p class="card-text ml-3">
+                                        ${description}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between align-items-end">
+                                <small class="text-muted">Harga paket mulai dari ${hargaPaket1}</small>
+                                <a href="#" class="btn btn-outline-info view-btn" data-id="${id}">View</a>
+                            </div>
+                        </div>
+                    </div>`;
+                $("#wisata").append(temp_html);
+            }
+
+            // Tambahkan event listener untuk tombol "View"
+            $(".view-btn").click(function () {
+                let id = $(this).data("id");
+                viewDetails(id);
+            });
+        },
+    });
+}
+
+// Fungsi untuk menampilkan detail artikel
+function viewDetails(id) {
+    // Kirim permintaan GET ke /get_details dengan parameter ID
+    $.ajax({
+        type: "GET",
+        url: "/get_details",
+        data: { cardId: id },
+        success: function (response) {
+            // Handle response untuk menampilkan detail artikel
+            console.log(response);
+            // Misalnya, tampilkan detail artikel di modal atau halaman terpisah
+        },
+        error: function (error) {
+            console.error("Error fetching details:", error);
+        },
+    });
+}
+
 
  
 </script>
 </head>
   <body>
+    {% if user_info and user_info.role == 'member' %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
+            <a class="navbar-brand" id="brand" href="/data_add">NoesantaraTour Gallery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link" href="/Gallery">Gallery</a>                    
+                    <a class="nav-link" href="/rincian">Rincian</a>
+                    <span id="username">{{ user_info.username }}</span>
+                    <a id="logout" class="btn btn-outline-danger ms-2" onclick="logout()">LOGOUT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% endif %}
+
+{% if not user_info %}    
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
           <a class="navbar-brand" id="brand" href="/">NoesantaraTour Gallery</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"></button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ml-auto" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link" href="/Gallery_nus">Gallery</a>          
+                    <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Login/Sign Up</button>
+                    
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content"  style="background-color: rgba(255, 255, 255, 0.8);">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Login/Sign Up</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                              <div class="modal-body">
+                                  <p>Select an option:</p>
+                                  <a class="btn btn-outline-info" href="/login_user">User</a>
+                                  <a class="btn btn-outline-dark" href="/login_admin">Admin</a>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </nav>
+            {% endif %}
+
+
+<!--  
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -157,7 +285,7 @@
             <button id="btn" class="btn btn-outline-dark ms-2">LOGIN/SIGN UP</button>
           </div>
         </div>
-      </nav>
+      </nav> -->
 
       <section class="content" id="search">             
         <input class="form-control me-2" type="search" placeholder="Mau berlibur kemana?" aria-label="Search">
@@ -165,7 +293,7 @@
       </section>
 
       <section id="wisata">         
-            <!-- <div class="container" id="daftar">
+            <div class="container" id="daftar">
             <div class="card mb-4 text-bg-secondary" style="height: 15rem;">                    
               <div class="card-body d-flex align-items-center">
                   <div class="box">
@@ -187,7 +315,7 @@
                   <a href="/Booking" class="btn btn-outline-light">View</a>
               </div>
           </div>
-            </div>        -->
+            </div>       
             <!-- <div class="content list container" id="daftar">              
               <div class="card mb-4 text-bg-secondary" style="height: 15rem;">                    
                 <div class="card-body d-flex align-items-center">
