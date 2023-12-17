@@ -2,6 +2,7 @@ import os
 from pymongo import MongoClient
 from os.path import join, dirname
 from dotenv import load_dotenv
+import time
 import jwt
 from datetime import datetime, timedelta
 import hashlib
@@ -305,9 +306,35 @@ def data_wisata():
         return render_template('wisata_list.html', user_info=user_info)        
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
         return redirect(url_for('data_view'))
-    
 
-@app.route('/wisata_add')
+@app.route('/data_wisata_list', methods=['GET'])
+def data_wisata_list():
+    try:
+        # Fetch data from the 'data_wisata' collection
+        articles = list(db.data_wisata.find({}, {'_id': False}))
+
+        # Return the data as JSON
+        return jsonify({'articles': articles }), 200
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return jsonify({'error': 'Failed to fetch data'}), 500
+
+
+# @app.route('/wisata_add')
+# def wisata_add():
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(
+#                 token_receive,
+#                 SECRET_KEY,
+#                 algorithms=['HS256']
+#             )
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         return render_template('Data_add.html', user_info=user_info)        
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+#         return redirect(url_for('data_view'))
+    
+@app.route('/wisata_add', methods=['GET'])
 def wisata_add():
     token_receive = request.cookies.get(TOKEN_KEY)
     try:
@@ -320,7 +347,53 @@ def wisata_add():
         return render_template('Data_add.html', user_info=user_info)        
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
         return redirect(url_for('data_view'))
- 
+
+@app.route('/wisata_add_form', methods=['POST'])
+def wisata_add_form():
+    try:
+        # Retrieve form data
+        file = request.files["file_give"]
+        extension = file.filename.split('.')[-1]
+        timestamp = int(time.time())  # Get current time in seconds since the Epoch
+        filename = f'static/post_{timestamp}.{extension}'  # Append the timestamp to the filename
+        file.save(filename)
+        title_receive = request.form['title_give']
+        description_receive = request.form['description_give']
+
+        paket1_receive = request.form['paket1_give']
+        konten1_receive = request.form['description1_give']
+        tiket1_receive = request.form['tiket1_give']
+        harga1_receive = request.form['harga1_give']
+
+        paket2_receive = request.form['paket2_give']
+        konten2_receive = request.form['description2_give']
+        tiket2_receive = request.form['tiket2_give']
+        harga2_receive = request.form['harga2_give']
+
+        # Process the form data
+        doc = {
+            'file': filename,
+            'title': title_receive,
+            'description': description_receive,
+            'paket1': {
+                'paket': paket1_receive,
+                'konten': konten1_receive,
+                'tiket': tiket1_receive,
+                'harga': harga1_receive,
+            },
+            'paket2': {
+                'paket': paket2_receive,
+                'konten': konten2_receive,
+                'tiket': tiket2_receive,
+                'harga': harga2_receive,
+            }
+        }
+
+        db.data_wisata.insert_one(doc) 
+        return jsonify({'msg': 'sukses'}), 200
+    except Exception as e:
+        print(f"Terjadi kesalahan: {str(e)}")
+        return jsonify({'msg': 'Failed'}), 500
 
 @app.route('/wisata_edit')
 def wisata_edit():

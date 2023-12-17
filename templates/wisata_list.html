@@ -46,51 +46,62 @@
         #alat1{
           margin-right: 16rem;
         }
+        .box{
+        border-radius: 5%;
+        margin-right: 2.5rem;
+        margin-left: 2rem;   
+        } 
 
     </style>
     <script>
-        
-        // $(document).ready(function () {
-        //     listing();
-        // });
 
-        // function listing() {
-        //     $.ajax({
-        //         type: "GET",
-        //         url: "/wisata_request",
-        //         cache: false,
-        //         data: {},
-        //         success: function (response) {
-        //             let articles = response["articles"];
-        //             for (let i = 0; i < articles.length; i++) {
-        //                 let title = articles[i]["title"];
-        //                 let description = articles[i]["description"];
-        //                 let temp_html = `
-        //                     <div class="container">
-        //                         <div class="card mb-4" style="height: 8rem;">
-        //                             <div class="card-body d-flex align-items-center">
-        //                                 <h3 style="margin-right: 2rem;">${title}</h3>
-        //                                 <p class="card-text ml-3" style="margin-right: 3rem;">
-        //                                     ${description}
-        //                                 </p>
-        //                                 <div class="d-flex">
-        //                                     <a href="/wisata_edit" class="btn btn-outline-success">EDIT</a>
-        //                                     <a onclick="delete()" class="btn btn-outline-danger ms-2">HAPUS</a>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 `;
-        //                 $("#list").append(temp_html);
-        //             }
-        //         },
-        //     });
-        // }
-        $(document).ready(function () {
+   $(document).ready(function () {
+       listing();
       $('#logout').click(function () {
         logout();
       });
     });  
+
+    function listing() {
+    $.ajax({
+        type: "GET",
+        url: "/data_wisata_list",
+        cache: false,
+        data: {},
+        success: function (response) {
+            let articles = response["articles"];
+            for (let i = 0; i < articles.length; i++) {
+                let file = articles[i]['file'];
+                let title = articles[i]["title"];
+                let description = articles[i]["description"];
+                let temp_html = `
+                    <div class="container">
+                        <div class="card mb-4" style="height: 8rem;">
+                            <div class="card-body d-flex align-items-center">
+                              <div class="box">
+                                <img src="${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
+                                </div>
+                                <div class="penjelasan">
+                                <h3 style="margin-right: 2rem;">${title}</h3>
+                                <p class="card-text ml-3" style="margin-right: 3rem;">
+                                    ${description}
+                                </p>
+                                </div>
+                                <div class="d-flex">
+                                    <a href="/wisata_edit" class="btn btn-outline-success">EDIT</a>
+                                    <a onclick="delete()" class="btn btn-outline-danger ms-2">HAPUS</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $("#list").append(temp_html);
+            }
+        },
+    });
+}
+
+
 
     function logout() {
     $.removeCookie('MYLAST', { path: '/' });
@@ -194,7 +205,7 @@
           </div>
             </div>
           
-          <div class="container">
+          <!-- <div class="container">
             <div class="card mb-4" style="height: 8rem;">                    
               <div class="card-body d-flex align-items-center">               
                   <h3 style="margin-right: 2rem;">Danau toba</h3>
@@ -209,7 +220,9 @@
                   </div>        
               </div>             
           </div>
-            </div>        
+            </div>         -->
+
+
   </section>
 </div>      
 <!-- content end -->
