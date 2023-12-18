@@ -62,21 +62,91 @@
       });
     });  
 
-    function listing() {
+//     function deleteArticle(id) {
+//     $.ajax({
+//         type: "POST",
+//         url: "/delete_article",
+//         data: { id: id },
+//         success: function (response) {
+//             // Refresh the article list
+//             listing();
+//         },
+//     });
+// }
+
+// function listing() {
+//     $.ajax({
+//         type: "GET",
+//         url: "/data_wisata_list",
+//         cache: false,
+//         data: {},
+//         success: function (response) {
+//             let articles = response["articles"];
+//             for (let i = 0; i < articles.length; i++) {
+//                 let id = articles[i]['id'];  // Assuming each article has a unique 'id' field
+//                 let file = articles[i]['file'];
+//                 let title = articles[i]["title"];
+//                 let description = articles[i]["description"];
+//                 let temp_html = `
+//                     <div class="container">
+//                         <div class="card mb-4" style="height: 8rem;">
+//                             <div class="card-body d-flex align-items-center">
+//                               <div class="box">
+//                                 <img src="${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
+//                                 </div>
+//                                 <div class="penjelasan">
+//                                 <h3 style="margin-right: 2rem;">${title}</h3>
+//                                 <p class="card-text ml-3" style="margin-right: 3rem;">
+//                                     ${description}
+//                                 </p>
+//                                 </div>
+//                                 <div class="d-flex">
+//                                     <a href="/wisata_edit" class="btn btn-outline-success">EDIT</a>
+//                                     <a onclick="deleteArticle(${id})" class="btn btn-outline-danger ms-2">HAPUS</a>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//                 $("#list").append(temp_html);
+//             }
+//         },
+//     });
+// }
+
+function deleteArticle(title) {
+    $.ajax({
+        type: "POST",
+        url: "/delete_card",
+        data: { title_give: title },  // Kirim title sebagai data
+        success: function (response) {
+            // Perbarui daftar artikel
+            listing();
+            alert("data wisata berhasil dihapus!!")
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting article:", error);
+            alert("Gagal menghapus artikel. Silakan coba lagi.");
+        }
+    });
+}
+
+function listing() {
     $.ajax({
         type: "GET",
         url: "/data_wisata_list",
         cache: false,
         data: {},
         success: function (response) {
+            $("#list").empty();  // Clear the list
             let articles = response["articles"];
             for (let i = 0; i < articles.length; i++) {
-                let file = articles[i]['file'];
                 let title = articles[i]["title"];
+                let file = articles[i]['file'];
                 let description = articles[i]["description"];
                 let temp_html = `
                     <div class="container">
-                        <div class="card mb-4" style="height: 8rem;">
+                        <div class="card mb-4" style="height: 20rem;">
                             <div class="card-body d-flex align-items-center">
                               <div class="box">
                                 <img src="${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
@@ -88,20 +158,76 @@
                                 </p>
                                 </div>
                                 <div class="d-flex">
-                                    <a href="/wisata_edit" class="btn btn-outline-success">EDIT</a>
-                                    <a onclick="delete()" class="btn btn-outline-danger ms-2">HAPUS</a>
-                                </div>
-                            </div>
-                        </div>
+                                  <a onclick="deleteArticle('${title}')" class="btn btn-outline-danger ms-2">HAPUS</a>
+                                  </div>
+                                  </div>
+                                  </div>
                     </div>
                 `;
                 $("#list").append(temp_html);
             }
         },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error fetching articles: ", textStatus);
+        }
     });
-}
+  }
 
+  // <a href="/wisata_edit/${title}" class="btn btn-outline-success">EDIT</a>//
+ 
 
+ 
+// function listing() {
+//     $.ajax({
+//         type: "GET",
+//         url: "/data_wisata_list",
+//         cache: false,
+//         data: {},
+//         success: function (response) {
+//             $("#list").empty();  // Clear the list
+//             let articles = response["articles"];
+//             if (!articles) {
+//                 console.error("Error: server response does not contain 'articles'");
+//                 return;
+//             }
+//             for (let i = 0; i < articles.length; i++) {
+//                 if (!articles[i] || !articles[i]["_id"]) {
+//                     console.error(`Error: article at index ${i} or its _id is undefined`);
+//                     continue;
+//                 }
+//                 let id = articles[i]["_id"];  // Get the _id field
+//                 let title = articles[i]["title"];
+//                 let file = articles[i]['file'];
+//                 let description = articles[i]["description"];
+//                 let temp_html = `
+//                     <div class="container">
+//                         <div class="card mb-4" style="height: 8rem;">
+//                             <div class="card-body d-flex align-items-center">
+//                               <div class="box">
+//                                 <img src="${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
+//                                 </div>
+//                                 <div class="penjelasan">
+//                                 <h3 style="margin-right: 2rem;">${title}</h3>
+//                                 <p class="card-text ml-3" style="margin-right: 3rem;">
+//                                     ${description}
+//                                 </p>
+//                                 </div>
+//                                 <div class="d-flex">
+//                                   <a href="/wisata_edit/${id}?title=${title}" class="btn btn-outline-success">EDIT</a>
+//                                     <a onclick="deleteArticle('${id}')" class="btn btn-outline-danger ms-2">HAPUS</a>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//                 $("#list").append(temp_html);
+//             }
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.error("Error fetching articles: ", textStatus);
+//         }
+//     });
+// }
 
     function logout() {
     $.removeCookie('MYLAST', { path: '/' });
@@ -109,6 +235,18 @@
     window.location.href = ("/");
 }
  
+// function findWisata(title) {
+//     $.ajax({
+//         url: "/find_wisata/" + title,
+//         type: 'GET',
+//         success: function(data) {
+//              alert('sukses');
+//         },
+//         error: function(error) {
+//               alert('failed');
+//         }
+//     });
+// }
 
 
     </script>
@@ -156,39 +294,23 @@
   <div class="container">
       <div class="row align-items-center">
           <div class="col" id="alat1">
-          <a href="/wisata_add" type="button" class="btn btn-dark" style="width: 15rem;">Tambahkan Destinasi</a>
+          <a href="/wisata_add" type="button" class="btn btn-dark" style="width: 15rem; margin-right: 40rem;">Tambahkan Destinasi</a>
           </div>
           <div class="col" id="alat2">                    
-          <div class="container d-flex justify-content-end">
+          <!-- <div class="container d-flex justify-content-end">
                 <form class="d-flex" role="search">
                   <input class="form-control me-2" type="search" placeholder="Mau cari yang mana?" aria-label="Search" style="width: 25rem;">
-                  <button class="btn btn-outline-dark" type="submit" alt="search">Search</button>
+                  <button class="btn btn-outline-dark" type="submit" onclick="findWisata()" alt="search">Search</button>
                 </form>
-          </div>                
+          </div>                 -->
           </div>
       </div>
   </div>
   </section>
 
   <section class="content" id="list">
-          <!-- <div class="container">
-          <div class="card mb-4" style="height: 8rem;">                    
-            <div class="card-body d-flex align-items-center">               
-                <h3 style="margin-right: 2rem;">Danau toba</h3>
-                <p class="card-text ml-3"style="margin-right: 3rem;">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
-                    Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-                    vitae sodales ante ultricies tincidunt. 
-                </p>
-                <div class="d-flex">
-                  <a href="/wisata_edit" class="btn btn-outline-success">EDIT</a>            
-                  <a onclick="delete()" class="btn btn-outline-danger ms-2">HAPUS</a>   
-                  </div>         
-            </div>             
-        </div>
-          </div> -->
 
-          <div class="container">
+          <!-- <div class="container">
             <div class="card mb-4" style="height: 8rem;">                    
               <div class="card-body d-flex align-items-center">               
                   <h3 style="margin-right: 2rem;">Danau toba</h3>
@@ -202,27 +324,8 @@
                     <a href="/list/Delete" class="btn btn-outline-danger ms-2">HAPUS</a>   
                    </div>           
               </div>             
-          </div>
-            </div>
-          
-          <!-- <div class="container">
-            <div class="card mb-4" style="height: 8rem;">                    
-              <div class="card-body d-flex align-items-center">               
-                  <h3 style="margin-right: 2rem;">Danau toba</h3>
-                  <p class="card-text ml-3"style="margin-right: 3rem;">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend congue rhoncus.
-                      Quisque lorem magna, facilisis et est non, laoreet tempus nisi. Duis posuere lacus tortor,
-                      vitae sodales ante ultricies tincidunt. 
-                  </p>
-                  <div class="d-flex">
-                  <a href="Data_Wisata_edit.html" class="btn btn-outline-success">EDIT</a>            
-                  <a href="/list/Delete" class="btn btn-outline-danger ms-2">HAPUS</a>   
-                  </div>        
-              </div>             
-          </div>
-            </div>         -->
-
-
+          </div>-->
+   
   </section>
 </div>      
 <!-- content end -->

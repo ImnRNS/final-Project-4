@@ -103,6 +103,7 @@ function posting() {
         success: function (response) {
             // console.log('Data wisata berhasil ditambahkan');
             alert(response['msg'])
+            window.location.href = ("data_wisata");
         },
         error: function (error) {
             // console.error('Terjadi kesalahan saat menambahkan data wisata:', error);

@@ -77,136 +77,14 @@
   </style>
   
   <script>
-    // $(document).ready(function () {
-    //     listing();
-    // });
+ 
+      window.onload = function() {
+    let params = new URLSearchParams(window.location.search);
+    let title = params.get('title');
 
-    // function listing() {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/booking_show",
-    //         cache: false,
-    //         data: {},
-    //         success: function (response) {
-    //             console.log('Respon:', response);
+    document.querySelector('.card-text').textContent = title;
+}
 
-    //             if (!response || !response.articles) {
-    //                 console.error('Respon tidak valid atau kosong');
-    //                 return;
-    //             }
-
-    //             let articles = response.articles;
-    //             console.log('Artikel:', articles);
-
-    //             for (let i = 0; i < articles.length; i++) {
-    //                 let title = articles[i]["title"];
-    //                 let description = articles[i]["description"];
-    //                 let file = articles[i]['file'];
-
-    //                 let paket1 = articles[i]['paket1']['paket'];
-    //                 let deskripsi1 = articles[i]['paket1']['konten'];
-    //                 let harga1 = articles[i]['paket1']['harga'];
-    //                 let tiket1 = articles[i]['paket1']['tiket'];
-
-    //                 let paket2 = articles[i]['paket2']['paket'];
-    //                 let deskripsi2 = articles[i]['paket2']['konten'];
-    //                 let harga2 = articles[i]['paket2']['harga'];
-    //                 let tiket2 = articles[i]['paket2']['tiket']
-
-    //                 let temp_html = `
-    //                     <div class="card">
-    //                         <img src="../${file}" class="card-img-top" alt="...">
-    //                         <div class="card-body">
-    //                             <h3 class="card-text">${title}</h3>
-    //                             <p class="card-text">${description}</p>
-    //                         </div>
-    //                     </div>
-
-    //                     <div class="row">
-    //                         <div class="col-sm-6 mb-3 mb-sm-0">
-    //                             <div class="card">
-    //                                 <div class="card-body">
-    //                                     <div class="nilai">
-    //                                         <h4 class="card-title">${paket1}</h4>        
-    //                                         <h4 class="card-title">Rp.${harga1}</h4>  
-    //                                     </div> 
-    //                                     <p class="card-text">${deskripsi1}</p>
-    //                                     <div class="nilai">
-    //                                         <h4>Tersedia : ${tiket1} paket</h4>
-    //                                         <a href="#" class="btn btn-primary">Booking</a>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-
-    //                         <div class="col-sm-6">
-    //                             <div class="card">
-    //                                 <div class="card-body">
-    //                                     <div class="nilai">
-    //                                         <h4 class="card-title">${paket2}</h4>        
-    //                                         <h4 class="card-title">Rp.${harga2}</h4>  
-    //                                     </div>                                                 
-    //                                     <p class="card-text">${deskripsi2}</p>
-    //                                     <div class="nilai">
-    //                                         <h4>Tersedia : ${tiket2} paket</h4>
-    //                                         <a href="#" class="btn btn-primary">Booking</a>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 `;
-
-    //                 $("#des").append(temp_html);
-    //             }
-    //         },
-    //     });
-    // }
-        // Fungsi untuk mengambil detail artikel berdasarkan cardId
-        function getDetails(cardId) {
-        $.ajax({
-          type: "GET",
-          url: `/get_detail?id=${cardId}`,
-          cache: false,
-          success: function (response) {
-            console.log('Detail Response:', response);
-
-            // Proses response dan tampilkan informasi sesuai kebutuhan
-            if (response && response.article) {
-              let article = response.article;
-
-              // Tampilkan informasi sesuai kebutuhan
-              let title = article.title;
-              let description = article.description;
-              let file = article.file;
-
-              let paket1 = article.paket1.paket;
-              let deskripsi1 = article.paket1.konten;
-              let harga1 = article.paket1.harga;
-              let tiket1 = article.paket1.tiket;
-
-              let paket2 = article.paket2.paket;
-              let deskripsi2 = article.paket2.konten;
-              let harga2 = article.paket2.harga;
-              let tiket2 = article.paket2.tiket;
-
-              let temp_html = `
-                <!-- Tampilkan informasi sesuai kebutuhan, misalnya dalam elemen HTML yang sesuai -->
-              `;
-
-              $("#des").append(temp_html);
-            } else {
-              console.error('Respon tidak valid atau kosong');
-            }
-          },
-        });
-      }
-
-      // Ambil cardId dari URL dan panggil fungsi getDetails saat halaman dimuat
-      $(document).ready(function () {
-        let cardId = new URLSearchParams(window.location.search).get('cardId');
-        getDetails(cardId);
-      });
   </script>
   </head>
   <body>
@@ -229,7 +107,7 @@
     </nav>
 
     <section class="container" id="des">
-    <div class="card">
+    <!-- <div class="card">
       <img src="../static/bali.jpg" class="card-img-top" alt="...">
       <div class="card-body">
         <h3 class="card-text">BALI</h3>
@@ -273,7 +151,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
  
   </section>
 
