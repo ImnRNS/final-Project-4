@@ -74,87 +74,196 @@
         display: inline;
         margin: 0.5rem;
         }
-  </style>
-  
+  </style>  
   <script>
- 
-      window.onload = function() {
-    let params = new URLSearchParams(window.location.search);
-    let title = params.get('title');
+$(document).ready(function () {
+    $('#logout').click(function () {
+        logout();
+    });  
+});
 
-    document.querySelector('.card-text').textContent = title;
+
+ 
+function logout() {
+    $.removeCookie('MYLAST', { path: '/' });
+    alert('Signed out!');
+    window.location.href = ("/");
 }
+
+
+function booking1() {
+    $.ajax({
+        url: '/request_user',  // replace with your booking endpoint
+        type: 'POST',
+        data: {
+            'user': '{{ user_info.username }}',
+            'file': '{{ title_info.file }}',
+            'title': '{{ title_info.title }}',
+            'description': '{{ title_info.description | e }}',
+            'paket': '{{ title_info.paket1.paket }}',
+            'konten': '{{ title_info.paket1.konten }}',
+            'tiket': '{{ title_info.paket1.tiket }}',
+            'harga': '{{ title_info.paket1.harga }}',
+            'status': '1',
+            'bukti': null
+        },
+        success: function(response) {
+            // Redirect to the rincian page with the title as a parameter
+            window.location.href = "/rincian/" + encodeURIComponent('{{ title_info.title }}') + "/" + encodeURIComponent('{{ title_info.paket1.paket }}') + "/" + encodeURIComponent('Menunggu Pembayaran');
+        },
+        error: function(error) {
+            // handle error
+            console.log(error);
+            alert('booking failed');
+        }
+    });
+}
+
+function booking2() {
+    // var paket = '{{ title_info.paket2.paket }}';
+    // console.log('Paket value in booking2: ', paket);
+    $.ajax({
+        url: '/request_user',  // replace with your booking endpoint
+        type: 'POST',
+        data: {
+            'user': '{{ user_info.username }}',
+            'file': '{{ title_info.file }}',
+            'title': '{{ title_info.title }}',
+            'description': '{{ title_info.description }}',
+            'paket': '{{ title_info.paket2.paket }}',
+            'konten': '{{ title_info.paket2.konten }}',
+            'tiket': '{{ title_info.paket2.tiket }}',
+            'harga': '{{ title_info.paket2.harga }}',
+            'status': '1',
+            'bukti': null
+        },
+        success: function(response) {
+            // Redirect to the rincian page with the title as a parameter
+            window.location.href = "/rincian/" + encodeURIComponent('{{ title_info.title }}') + "/" + encodeURIComponent('{{ title_info.paket2.paket }}') + "/" + encodeURIComponent('Menunggu Pembayaran');
+        },
+        error: function(error) {
+            // handle error
+            console.log(error);
+            alert('booking failed');
+        }
+    });
+}
+
+</script>
 
   </script>
   </head>
   <body>
+    {% if user_info and user_info.role == 'member' %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" id="brand" href="/">NoesantaraTour Gallery</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse ml-auto" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link"  href="/">Home</a>
-            <a class="nav-link active" aria-current="page" href="/Gallery">Gallery</a>
-            <a class="nav-link" href="#">Rincian</a>
-          </div>
-          <span id="username">Username</span>
-          <button id="btn" class="btn btn-outline-dark ms-2">LOGIN/SIGN UP</button>
+        <div class="container-fluid">
+            <a class="navbar-brand" id="brand" href="/home">NoesantaraTour Gallery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" href="/gallery">Gallery</a>                    
+                    <a class="nav-link" href="/rincian">Rincian</a>
+                    <span id="username">{{ user_info.username }}</span>
+                    <a id="logout" class="btn btn-outline-danger ms-2" onclick="logout()">LOGOUT</a>
+                </div>
+            </div>
         </div>
-      </div>
     </nav>
+{% endif %}
+
+{% if not user_info %}    
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">      
+          <div class="container-fluid">
+              <a class="navbar-brand" id="brand" href="/data_add">NoesantaraTour Gallery</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ms-auto" id="navbarNavAltMarkup">
+                  <div class="navbar-nav">
+                      <a class="nav-link" aria-current="page" href="/">Home</a>
+                      <a class="nav-link active" href="/Gallery_nus">Gallery</a>          
+                      <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Login/Sign Up</button>
+                      
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"  style="background-color: rgba(255, 255, 255, 0.8);">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Login/Sign Up</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                <div class="modal-body">
+                                    <p>Select an option:</p>
+                                    <a class="btn btn-outline-info" href="/login_user">User</a>
+                                    <a class="btn btn-outline-dark" href="/login_admin">Admin</a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </nav>
+            {% endif %}
+
 
     <section class="container" id="des">
-    <!-- <div class="card">
-      <img src="../static/bali.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h3 class="card-text">BALI</h3>
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum semper lacus, in lobortis sem facilisis eu. Proin ullamcorper tortor sed iaculis tempor. Vestibulum nunc metus, dapibus quis bibendum ut, efficitur quis velit. Suspendisse suscipit, erat eu tempus tincidunt, mauris dui finibus risus, vel elementum libero urna a urna. Aliquam erat volutpat. Praesent in nulla vel nulla porttitor varius ut non orci. Ut mattis vitae lacus eu porttitor. Ut eleifend rhoncus scelerisque. Maecenas nec nisi et risus euismod feugiat. Fusce fringilla arcu sed nisi pellentesque rutrum. Proin mi odio, vestibulum at justo cursus, suscipit sollicitudin sem. Quisque ut nunc mi. Phasellus mollis velit in convallis facilisis. Suspendisse porttitor nibh in metus posuere bibendum. Donec molestie pharetra euismod. Suspendisse venenatis tristique tortor in vulputate. Vestibulum laoreet dui sed quam fermentum, vitae convallis odio ornare. Sed efficitur fermentum nibh, eget aliquam ante porttitor nec. Proin dignissim scelerisque ligula. Donec ultricies risus mi, et fringilla nisl porta a. Duis blandit sem magna, fringilla accumsan metus finibus sed. Nulla sodales pretium egestas. Pellentesque tristique convallis nisi gravida efficitur.
 
-          Integer cursus ante odio, ac interdum ante bibendum at. Mauris quam orci, accumsan mattis varius ac, tincidunt convallis nisl. In porttitor facilisis neque, ac dictum lorem sodales sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare id magna id interdum. Curabitur dui lacus, rutrum ut velit et, tristique auctor sem. Praesent luctus turpis tortor, mattis venenatis erat eleifend quis. Aenean quis velit vel lacus ultrices semper a id erat. Nulla id purus iaculis, malesuada lectus ac, dictum sem. In consectetur nisl nec tortor fringilla iaculis. Curabitur rhoncus ex non erat vehicula accumsan. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed finibus, augue non fermentum vulputate, magna diam volutpat libero, et consectetur lorem ligula vel turpis.
-        </p>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-sm-6 mb-3 mb-sm-0">
-        <div class="card">
-          <div class="card-body">
-            <div class="nilai">
-              <h4 class="card-title">PAKET VIP</h4>        
-              <h4 class="card-title">Rp.10.000.000.00</h4>  
-              </div> 
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <div class="nilai">
-              <h4>Tersedia : </h4>
-              <a href="#" class="btn btn-primary">Booking</a>
+            
+            <div class="card">
+              <img src="../{{ title_info.file }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <h3 class="card-text">{{ title_info.title }}</h3>
+                  <p class="card-text">{{ title_info.description }}</p>
               </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="nilai">
-            <h4 class="card-title">PAKET REGULER</h4>        
-            <h4 class="card-title">Rp.10.000.000.00</h4>  
-            </div>         
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <div class="nilai">
-            <h4>Tersedia</h4>
-            <a href="#" class="btn btn-primary">Booking</a>
             </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
+            <!-- Bagian Pertama - Paket 1 -->
+            <div class="row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="nilai">
+                              <h4 class="card-title">{{ title_info.paket1.paket }}</h4>        
+                              <h4 class="card-title">Rp.{{ title_info.paket1.harga }}</h4>  
+                          </div> 
+                          <p class="card-text">{{ title_info.paket1.konten }}</p>
+                          <div class="nilai">
+                              <h4>Tersedia : {{ title_info.paket1.tiket }} paket</h4>
+                              <a onclick="booking1()" id="btn" class="btn btn-primary">Booking</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
+            <!-- Bagian Kedua - Paket 2 -->
+              <div class="col-sm-6">
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="nilai">
+                              <h4 class="card-title">{{ title_info.paket2.paket }}</h4>        
+                              <!-- <h4 class="card-title">Rp.{{ title_info.paket2.harga }}</h4>   -->
+                              <h4 class="card-title">Rp.{{ title_info.paket2.harga }}</h4>
+                          </div>                                                 
+                          <!-- <p class="card-text">{{ title_info.paket2.konten }}</p> -->
+                          <p class="card-text">{{ title_info.paket2.konten }}</p>
+                          <div class="nilai">
+                              <!-- <h4>Tersedia : {{ title_info.paket2.tiket }} paket</h4> -->
+                              <h4>Tersedia: {{ title_info.paket2.tiket }} paket</h4>
+                              <a onclick="booking2()" id="btn" class="btn btn-primary">Booking</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
 
  
+
   </section>
 
 

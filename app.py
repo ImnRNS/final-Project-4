@@ -57,11 +57,14 @@ def Gallery_nus():
     msg = request.args.get('msg')
     return render_template('Gallery.html',  msg=msg)
 
+@app.route('/booking_nus')
+def func():
+    return render_template('booking.html')
 
-@app.route('/booking/<title>')
-def booking_title(title):
-    title_info = db.data_wisata.find_one({'title': title})    
-    return render_template('booking.html', title_info=title_info)
+# @app.route('/booking/<title>', methods=['GET'])
+# def booking_title(title):
+#     title_info = db.data_wisata.find_one({'title': title})    
+#     return render_template('booking.html', title_info=title_info)
 
 # @app.route("/admin_reg")
 # def admin_register():
@@ -148,7 +151,7 @@ def sign_in():
         payload = {
             "id": username_receive,
             # the token will be valid for 24 hours
-            "exp": datetime.utcnow() + timedelta(seconds=60 * 15),
+            "exp": datetime.utcnow() + timedelta(seconds=60 * 60),
             "role": result["role"],
         }
         print(payload)
@@ -269,20 +272,120 @@ def gallery_list():
 
 
 
-@app.route('/booking')
+# @app.route('/booking')
+# def booking():
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(
+#                 token_receive,
+#                 SECRET_KEY,
+#                 algorithms=['HS256']
+#             )
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         return render_template('booking.html', user_info=user_info)        
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+#         return redirect(url_for('home'))
+
+# @app.route('/booking', methods=['GET'])
+# def booking():
+#     title = request.args.get('title')
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         title_info = db.data_wisata.find_one({'title': title})
+#         if title_info is None:
+#             return "Title not found", 404
+#         return render_template('booking.html', user_info=user_info, title_info=title_info)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+#         return redirect(url_for('home'))
+
+@app.route('/booking/<title>', methods=['GET'])
+def booking_title(title):
+    title_info = db.data_wisata.find_one({'title': title})
+    if title_info is None:
+        return "Title not found", 404
+    return render_template('booking.html',  title_info=title_info)
+    # articles = db.data_wisata.find({'title': title})  # Fetch all bookings with the same title
+
+@app.route('/booking', methods=['GET'])
 def booking():
+    title = request.args.get('title')
     token_receive = request.cookies.get(TOKEN_KEY)
     try:
-        payload = jwt.decode(
-                token_receive,
-                SECRET_KEY,
-                algorithms=['HS256']
-            )
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({'username': payload.get('id')})
-        return render_template('booking.html', user_info=user_info)        
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+        title_info = db.data_wisata.find_one({'title': title})
+        if title_info is None:
+            return "Title not found", 404
+        paket1 = title_info.get('paket1', {})
+        paket2 = title_info.get('paket2', {})
+        return render_template('booking.html', user_info=user_info, title_info=title_info, paket1=paket1, paket2=paket2)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for('home'))
-     
+
+@app.route('/request_user', methods=['POST'])
+def handle_request():    
+    try:
+        # Retrieve form data
+        file = request.form['file']
+        title = request.form['title']
+        description = request.form['description']
+        paket = request.form['paket']
+        konten = request.form['konten']
+        tiket = request.form['tiket']
+        harga = request.form['harga']
+        status = request.form['status']
+        bukti = request.form['bukti']
+        # Process the form data
+        doc = {
+            'file': file,
+            'title': title,
+            'description': description,
+            'paket': paket,
+            'konten': konten,
+            'tiket': tiket,
+            'harga': harga,
+            'status': status,
+            'bukti' : bukti,
+        }
+
+        db.data_request.insert_one(doc) 
+        return jsonify({'msg': 'sukses'}), 200
+    except Exception as e:
+        print(f"Terjadi kesalahan: {str(e)}")
+        return jsonify({'msg': 'Failed'}), 500
+
+# @app.route('/request_user', methods=['POST'])
+# def handle_request():
+#     try:
+#         # Retrieve form data
+#         user = request.form['user']
+#         file = request.form['file']
+#         title = request.form['title']
+#         description = request.form['description']
+#         paket = request.form['paket']
+#         konten = request.form['konten']
+#         tiket = request.form['tiket']
+#         harga = request.form['harga']
+
+#         # Process the form data
+#         doc = {
+#             'user': user,
+#             'file': file,
+#             'title': title,
+#             'description': description,
+#             'paket': paket,
+#             'konten': konten,
+#             'tiket': tiket,
+#             'harga': harga,
+#         }
+
+#         db.data_request.insert_one(doc) 
+#         return jsonify({'msg': 'sukses'}), 200
+#     except Exception as e:
+#         print(f"Terjadi kesalahan: {str(e)}")
+#         return jsonify({'msg': 'Failed'}), 500
 
 @app.route('/rincian')
 def rincian():
@@ -297,7 +400,131 @@ def rincian():
         return render_template('Rincian.html', user_info=user_info)        
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
         return redirect(url_for('home'))
+
+
+@app.route('/rincian/<title>/<paket>/<status>', methods=['GET'])
+def rincian_title(title, paket, status):
+    print('Paket value in rincian_title: ', paket)
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        payload = jwt.decode(
+            token_receive,
+            SECRET_KEY,
+            algorithms=['HS256']
+        )
+        user_info = db.users.find_one({'username': payload.get('id')})
+        title_info = db.data_request.find_one({'title': title})
+        if title_info is None:
+            return "Title not found", 404
+        # paket = title_info.het('paket', paket1)
+        bukti = title_info.get('bukti', None)
+        return render_template('rincian.html',  title_info=title_info, user_info=user_info, paket=paket, status=status, bukti=bukti)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+        return redirect(url_for('home'))
+
+
+# @app.route('/rincian/<title>/<paket>/<status>', methods=['GET'])
+# def rincian_title(title, paket, status):
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(
+#             token_receive,
+#             SECRET_KEY,
+#             algorithms=['HS256']
+#         )
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         title_info = db.data_request.find_one({'title': title})
+#         bukti = db.data_request.find_one({'bukti': bukti})
+#         if title_info is None:
+#             return "Title not found", 404
+#         return render_template('rincian.html',  title_info=title_info, user_info=user_info, paket=paket, status=status, bukti=bukti)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+#         return redirect(url_for('home'))
+
+
+# @app.route('/rincian/<title>/<paket>/<status>', methods=['GET'])
+# def rincian_title(title, paket, status):
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(
+#             token_receive,
+#             SECRET_KEY,
+#             algorithms=['HS256']
+#         )
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         title_info = db.data_request.find_one({'title': title})
+#         if title_info is None:
+#             return "Title not found", 404
+#         return render_template('rincian.html',  title_info=title_info, user_info=user_info, paket=paket, status=status)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+#         return redirect(url_for('home'))
+
+# @app.route('/rincian/<title>', methods=['GET'])
+# def rincian_title(title):
+#     token_receive = request.cookies.get(TOKEN_KEY)
+#     try:
+#         payload = jwt.decode(
+#             token_receive,
+#             SECRET_KEY,
+#             algorithms=['HS256']
+#         )
+#         user_info = db.users.find_one({'username': payload.get('id')})
+#         title_info = db.data_request.find_one({'title': title})
+#         if title_info is None:
+#             return "Title not found", 404
+#         return render_template('rincian.html',  title_info=title_info, user_info=user_info)
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):        
+#         return redirect(url_for('home'))
+
+# @app.route('/rincian/<title>', methods=['GET'])
+# def rincian_title(title):
+#     title_info = db.data_request.find_one({'title': title})
+#     if title_info is None:
+#         return "Title not found", 404
+#     return render_template('rincian.html',  title_info=title_info)
+ 
+# @app.route('/data_request_list', methods=['GET'])
+# def data_request_list():
+#     try:
+#         # Fetch data from the 'data_request' collection
+#         requests = list(db.data_request.find({}, {'_id': False}))
+
+#         # Return the data as JSON
+#         return jsonify({'requests': requests }), 200
+#     except Exception as e:
+#         print(f"An error occurred: {str(e)}")
+#         return jsonify({'error': 'Failed to fetch data'}), 500
    
+# @app.route('/request_rincian', methods=['POST'])
+# def handle_request():
+#     try:
+#         # Retrieve form data
+#         user = request.form['user']
+#         file = request.form['file']
+#         title = request.form['title']
+#         description = request.form['description']
+#         paket = request.form['paket']
+#         konten = request.form['konten']
+#         tiket = request.form['tiket']
+#         harga = request.form['harga']
+
+#         # Process the form data
+#         doc = {
+#             'user': user,
+#             'file': file,
+#             'title': title,
+#             'description': description,
+#             'paket': paket,
+#             'konten': konten,
+#             'tiket': tiket,
+#             'harga': harga,
+#         }
+
+#         db.data_request.insert_one(doc) 
+#         return jsonify({'msg': 'sukses'}), 200
+#     except Exception as e:
+#         print(f"Terjadi kesalahan: {str(e)}")
+#         return jsonify({'msg': 'Failed'}), 500
 
 #server side for admin
 @app.route('/data_view')

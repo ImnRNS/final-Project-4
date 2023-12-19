@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RINCIAN</title>
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@100;300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/playfair-display@4.0.1/index.css" rel="stylesheet"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <style>
         body {
         font-family: 'Playfair Display', serif;
@@ -62,6 +64,16 @@
             display: inline-block; /* Ensures that the file input and the button appear on the same line */
             margin-right: 10px; /* Optional: Add some spacing between the file input and the button */
     }
+    .none{
+      padding: 50px;
+      background-color: #f5f5f5;
+      text-align: center;
+      justify-content: center;
+      font-size: large;
+      margin-top: 5rem;
+      margin-bottom: 5rem;
+      font-family: 'Playfair Display', serif;
+    }
     footer {
         padding: 5vw;
         margin-top: 10rem;
@@ -86,11 +98,55 @@
   
     </style>
     <script>
-       $(document).ready(function () {
-            listing();
-        });
+   $(document).ready(function () {
+      //  listing();
+      $('#logout').click(function () {
+        logout();
+      });
+    });  
+    function logout() {
+    $.removeCookie('MYLAST', { path: '/' });
+    alert('Signed out!');
+    window.location.href = ("/");
+  }
+ 
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
-         
+var title = getParameterByName('title');
+    
+ 
+document.getElementById('formFile').addEventListener('change', function() {
+    var file = this.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        url: '/upload_file',  // replace with your file upload endpoint
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            // handle success
+            console.log(response);
+            alert('File uploaded!');
+        },
+        error: function(error) {
+            // handle error
+            console.log(error);
+            alert('File not uploaded!')
+        }
+    });
+});
+
     </script>
   </head>
   <body>
@@ -107,39 +163,38 @@
               <a class="nav-link active" aria-current="page" href="/rincian">Rincian</a>
             </div>
             <span id="username">{{ user_info.username }}</span>
-            <button id="btn" class="btn btn-outline-dark ms-2">LOGIN/SIGN UP</button>
+            <button id="logout" class="btn btn-outline-danger ms-2">Log out</button>
           </div>
         </div>
       </nav>
 
       <section class="content" id="daftar">
         <div class="card">
-            <div class="card-header">
-              WISATA DANAU TOBA
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">PAKET VIP</h5>
-              <p class="card-text">Harap Lampirkan bukti pemabayaran</p>
+        <div class="card-header d-flex" style=" justify-content: space-between;">
+            <h4>{% if title_info %}{{ title_info.title }}{% else %}Title not found{% endif %}</h4>
+            <h4>{% if user_info %}{{ user_info.username }}{% else %}User not found{% endif %}</h4>              
+        </div>
+        <div class="card-body">             
+            {% if paket == 'PAKET REGULER' %}
+                <h5 class="card-title">{{ title_info.paket }}</h5>
+            {% elif paket == 'PAKET VIP' %}
+                <h5 class="card-title">{{ title_info.paket }}</h5>
+            {% else %}
+                <h5 class="card-title">Paket not found</h5>
+            {% endif %}
+            <p class="card-text">Harap Lampirkan bukti pemabayaran</p>
+            <p class="card-text">{{ status }}</p>
             <div class="alat">            
-              <input class="form-control" type="file" id="formFile">                                  
-              <a href="#" class="btn btn-warning">Waiting..</a>
+                <input class="form-control" type="file" id="formFile" onchange="uploadFile()">
+                {% if bukti is none %}                                  
+                <a href="#" id="formfile" class="btn btn-warning">Waiting..</a>                   
+                {% else %}
+                    <a href="#" class="btn btn-primary">Accepted</a>
+                {% endif %}
             </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              WISATA DANAU TOBA
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">PAKET VIP</h5>
-              <p class="card-text">Harap Lampirkan bukti pemabayaran</p>
-            <div class="alat">            
-              <input class="form-control" type="file" id="formFile">                                  
-              <a href="#" class="btn btn-primary">Accepted</a>
-            </div>
-            </div>
-          </div>
+        </div>
+    </div>
+    
       </section>
 
       <footer>

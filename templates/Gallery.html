@@ -41,14 +41,14 @@
       color: rgb(73, 49, 49);
       margin-right: 15px;
     }
-    #search{
+    /* #search{
         padding-top: 3rem;
         padding-right: 3rem;
         padding-left: 10rem;
         display: flex;
         justify-content: end;
         margin-bottom: 3rem;
-    }
+    } */
         .list{
             padding-left: 3rem;
             padding-right: 3rem;
@@ -68,8 +68,14 @@
         margin-right: 2.5rem;
         margin-left: 2rem;   
         } 
-
-        .ms-auto{
+        
+        #paragraf {
+            overflow: hidden;  /* Sembunyikan konten yang melebihi batas elemen */
+            display: -webkit-box;
+            -webkit-line-clamp: 5;  /* Jumlah baris yang ingin ditampilkan */
+            -webkit-box-orient: vertical;
+        }
+      .ms-auto{
           margin-left: 28vw!important;
         }
 
@@ -96,49 +102,14 @@
     
 </style>  
 <script>
-    //     $(document).ready(function () {
-    //     listing();        
-    //   });
-    //  function listing() {
-    //     $.ajax({
-    //       type: "GET",
-    //       url: "/gallery_list",
-    //       cache: false,
-    //       data: {},
-    //       success: function (response) {
-    //           let articles = response["articles"];
-    //           for (let i = 0; i < articles.length; i++) {
-    //           let title = articles[i]["title"];
-    //           let description = articles[i]["description"];
-    //           let file = articles[i]['file'];
-    //           let harga = articles[i]['paket1']['harga'];
-    //           let temp_html = `            
-    //           <div class="content list container" id="daftar">              
-    //         <div class="card mb-4 text-bg-secondary" style="height: 20rem;">                    
-    //           <div class="card-body d-flex align-items-center">
-    //               <div class="box">
-    //                   <img src="../${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
-    //               </div>
-    //               <div class="penjelasan">
-    //               <h3>${title}</h3>
-    //               <p class="card-text ml-3">
-    //                   ${description}
-    //               </p>
-    //               </div>
-    //           </div>
-    //           <div class="card-footer d-flex justify-content-between align-items-end">
-    //               <small class="text-muted">Harga paket mulai dari ${harga}</small>
-    //               <a href="/Booking" class="btn btn-outline-info">View</a>
-    //           </div>
-    //       </div>  
-    //       </div>           
-    //             `;
-    //           $("#wisata").append(temp_html);
-    //         }
-    //       },
-    //     });
-    //   }
+
     
+  $(document).ready(function () {
+  listing();  
+  $('#logout').click(function () {
+      logout();
+    });  
+});
     function listing() {
     $.ajax({
         type: "GET",
@@ -152,7 +123,7 @@
                 let title = articles[i]["title"];
                 let description = articles[i]["description"];
                 let file = articles[i]['file'];
-                let harga = articles[i]['paket1']['harga'];
+                let harga = articles[i]['paket2']['harga'];
                 let temp_html = `
                     <div class="content list container" id="daftar">
                         <div class="card mb-4 text-bg-secondary" style="height: 20rem;">
@@ -162,7 +133,7 @@
                                 </div>
                                 <div class="penjelasan">
                                     <h3>${title}</h3>
-                                    <p class="card-text ml-3">
+                                    <p class="card-text ml-3" id="paragraf">
                                         ${description}
                                     </p>
                                 </div>
@@ -176,86 +147,16 @@
                 $("#wisata").append(temp_html);
             }
         },
-    });
-}
+    });   
+  }
 
-    $(document).ready(function () {
-    listing();  
-    $('#logout').click(function () {
-        logout();
-      });  
-});
 
 function logout() {
     $.removeCookie('MYLAST', { path: '/' });
     alert('Signed out!');
     window.location.href = ("/");
 }
-
-// function listing() {
-//     $.ajax({
-//         type: "GET",
-//         url: "/gallery_list",
-//         cache: false,
-//         data: {},
-//         success: function (response) {
-//             let articles = response["articles"];
-//             for (let i = 0; i < articles.length; i++) {
-//                 let id = articles[i]["id"];
-//                 let title = articles[i]["title"];
-//                 let description = articles[i]["description"];
-//                 let file = articles[i]['file'];
-//                 let harga = articles[i]['paket1']['harga'];
-//                 let temp_html = `
-//                     <div class="content list container" id="daftar">
-//                         <div class="card mb-4 text-bg-secondary" style="height: 20rem;">
-//                             <div class="card-body d-flex align-items-center">
-//                                 <div class="box">
-//                                     <img src="/${file}" class="card-img" style="border-radius: 5%; width: 10rem;">
-//                                 </div>
-//                                 <div class="penjelasan">
-//                                     <h3>${title}</h3>
-//                                     <p class="card-text ml-3">
-//                                         ${description}
-//                                     </p>
-//                                 </div>
-//                             </div>
-//                             <div class="card-footer d-flex justify-content-between align-items-end">
-//                                 <small class="text-muted">Harga paket mulai dari ${harga}</small>
-//                                 <a href="#" class="btn btn-outline-info view-btn" data-id="${id}">View</a>
-//                             </div>
-//                         </div>
-//                     </div>`;
-//                 $("#wisata").append(temp_html);
-//             }
-
-//             // Tambahkan event listener untuk tombol "View"
-//             $(".view-btn").click(function () {
-//                 let id = $(this).data("id");
-//                 viewDetails(id);
-//             });
-//         },
-//     });
-// }
-
-// // Fungsi untuk menampilkan detail artikel
-// function viewDetails(id) {
-//     // Kirim permintaan GET ke /get_details dengan parameter ID
-//     $.ajax({
-//         type: "GET",
-//         url: "/get_details",
-//         data: { cardId: id },
-//         success: function (response) {
-//             // Handle response untuk menampilkan detail artikel
-//             console.log(response);
-//             // Misalnya, tampilkan detail artikel di modal atau halaman terpisah
-//         },
-//         error: function (error) {
-//             console.error("Error fetching details:", error);
-//         },
-//     });
-// }
-
+ 
 
  
 </script>
@@ -270,8 +171,8 @@ function logout() {
             </button>
             <div class="collapse navbar-collapse ms-auto" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    <a class="nav-link" href="/Gallery">Gallery</a>                    
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" href="/gallery">Gallery</a>                    
                     <a class="nav-link" href="/rincian">Rincian</a>
                     <span id="username">{{ user_info.username }}</span>
                     <a id="logout" class="btn btn-outline-danger ms-2" onclick="logout()">LOGOUT</a>
@@ -291,7 +192,7 @@ function logout() {
               <div class="collapse navbar-collapse ms-auto" id="navbarNavAltMarkup">
                   <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="/">Home</a>
-                      <a class="nav-link" href="/Gallery_nus">Gallery</a>          
+                      <a class="nav-link active" href="/Gallery_nus">Gallery</a>          
                       <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Login/Sign Up</button>
                       
                       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
